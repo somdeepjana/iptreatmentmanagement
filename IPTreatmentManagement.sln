@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPTreatmentManagement.Api",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPTreatmentManagement.Models", "IPTreatmentManagement.Models\IPTreatmentManagement.Models.csproj", "{71CB83AE-F9A5-40AE-BF6F-E6F95388C557}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPTreatmentManagement.Data", "IPTreatmentManagement.Data\IPTreatmentManagement.Data.csproj", "{F0C15F17-B579-4437-943C-6C30DD711A61}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPTreatmentManagement.EFCore.Data", "IPTreatmentManagement.Data\IPTreatmentManagement.EFCore.Data.csproj", "{F0C15F17-B579-4437-943C-6C30DD711A61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
