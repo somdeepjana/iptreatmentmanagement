@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using IPTreatmentManagement.Models.RepositorieInterfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,12 @@ namespace IPTreatmentManagement.Api.Controllers
     [ApiController]
     public class IPTreatmentPackagesController : ControllerBase
     {
+        private readonly IIPTreatmentPackageRepository _iPTreatmentPackageRepository;
+
+        public IPTreatmentPackagesController(IIPTreatmentPackageRepository iPTreatmentPackageRepository)
+        {
+            _iPTreatmentPackageRepository = iPTreatmentPackageRepository;
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetAllIPTreatmentPackages()

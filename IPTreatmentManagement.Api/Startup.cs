@@ -38,6 +38,8 @@ namespace IPTreatmentManagement.Api
             services.AddScoped<IIPTreatmentPackageRepository, IPTreatmentPackageRepository>();
             services.AddScoped<ISpecialistRepository, SpecialistRepository>();
 
+            services.AddAutoMapper(typeof(Models.MappingPofile));
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
