@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IPTreatmentManagement
+namespace IPTreatmentManagement.Api
 {
     public class Startup
     {
@@ -30,7 +30,7 @@ namespace IPTreatmentManagement
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IPTreatmentManagement", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IPTreatmentManagement.Api", Version = "v1" });
             });
         }
 
@@ -41,7 +41,7 @@ namespace IPTreatmentManagement
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IPTreatmentManagement v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IPTreatmentManagement.Api v1"));
             }
 
             app.UseHttpsRedirection();

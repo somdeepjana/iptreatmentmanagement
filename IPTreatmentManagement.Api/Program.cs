@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IPTreatmentManagement
+namespace IPTreatmentManagement.Api
 {
     public class Program
     {
