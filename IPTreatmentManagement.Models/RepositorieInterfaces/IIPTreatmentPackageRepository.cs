@@ -11,5 +11,6 @@ namespace IPTreatmentManagement.Models.RepositorieInterfaces
     {
         Task<IEnumerable<IPTreatmentPackageEntity>> GetAllAsync();
         Task<IPTreatmentPackageEntity> GetByNameAsync(string packageName);
+        void Add(IPTreatmentPackageEntity entity);
     }
 }

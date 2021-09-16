@@ -15,6 +15,12 @@ namespace IPTreatmentManagement.EFCore.Data.Repositories
         {
         }
 
+        public async void Add(IPTreatmentPackageEntity entity)
+        {
+            entity.Id = 0;
+            await _context.IPTreatmentPackages.AddAsync(entity);
+        }
+
         public async Task<IEnumerable<IPTreatmentPackageEntity>> GetAllAsync()
         {
             return await _context.IPTreatmentPackages.ToListAsync();
