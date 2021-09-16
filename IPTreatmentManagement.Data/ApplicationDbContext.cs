@@ -17,5 +17,21 @@ namespace IPTreatmentManagement.EFCore.Data
         public DbSet<IPTreatmentPackageEntity> IPTreatmentPackages { get; set; }
         public DbSet<SpecialistEntity> Specialists { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<IPTreatmentPackageEntity>()
+                .Property(i => i.AilmentCategory)
+                .HasConversion(
+                v => v.ToString(),
+                v => (AilmentDomain)Enum.Parse(typeof(AilmentDomain), v));
+
+            modelBuilder.Entity<SpecialistEntity>()
+                .Property(s => s.AreaOfExpertise)
+                .HasConversion(
+                v => v.ToString(),
+                v => (AilmentDomain)Enum.Parse(typeof(AilmentDomain), v));
+        }
     }
 }
