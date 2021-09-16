@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using IPTreatmentManagement.Api.Models;
 using IPTreatmentManagement.Models.Dtos.Response;
 using IPTreatmentManagement.Models.RepositorieInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +16,16 @@ namespace IPTreatmentManagement.Api.Controllers
     [ApiController]
     public class IPTreatmentPackagesController : ControllerBase
     {
+        private readonly ILogger<IPTreatmentPackagesController> _logger;
         private readonly IMapper _mapper;
         private readonly IIPTreatmentPackageRepository _iPTreatmentPackageRepository;
 
         public IPTreatmentPackagesController(
+            ILogger<IPTreatmentPackagesController> logger,
             IMapper mapper,
-            IIPTreatmentPackageRepository iPTreatmentPackageRepository
-            )
+            IIPTreatmentPackageRepository iPTreatmentPackageRepository)
         {
+            _logger = logger;
             _mapper = mapper;
             _iPTreatmentPackageRepository = iPTreatmentPackageRepository;
         }
@@ -40,7 +44,16 @@ namespace IPTreatmentManagement.Api.Controllers
             var iPTreatmentPackage = await _iPTreatmentPackageRepository.GetByNameAsync(packageName);
 
             if (iPTreatmentPackage == null)
-                return NotFound();
+            {
+                var error = new ErrorResponseModel()
+                {
+                    ErrorId = Guid.NewGuid().ToString(),
+                    Message = $"No IPTreatmentPackage by name '{packageName}' found",
+                    Type = ErrorTypes.UserSideError.ToString()
+                };
+                //_logger.LogTrace()
+                return NotFound(error);
+            }
 
             return _mapper.Map<IPTreatmentPackageResponseDto>(iPTreatmentPackage);
         }
