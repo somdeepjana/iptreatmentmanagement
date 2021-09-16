@@ -9,6 +9,6 @@ namespace IPTreatmentManagement.Models.RepositorieInterfaces
 {
     public interface ISpecialistRepository : IRepository
     {
-        Task<IEnumerable<SpecialistEntity>> GetAll();
+        Task<IEnumerable<SpecialistEntity>> GetAllAsync();
     }
 }

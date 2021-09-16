@@ -15,7 +15,7 @@ namespace IPTreatmentManagement.EFCore.Data.Repositories
         {
         }
 
-        public async Task<IEnumerable<SpecialistEntity>> GetAll()
+        public async Task<IEnumerable<SpecialistEntity>> GetAllAsync()
         {
             return await _context.Specialists.ToListAsync();
         }

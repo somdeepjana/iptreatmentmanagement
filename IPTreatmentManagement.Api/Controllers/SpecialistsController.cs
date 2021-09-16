@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using IPTreatmentManagement.Models.Dtos.Response;
+using IPTreatmentManagement.Models.RepositorieInterfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,10 +14,24 @@ namespace IPTreatmentManagement.Api.Controllers
     [ApiController]
     public class SpecialistsController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> GetAllSpecialists()
+        private readonly IMapper _mapper;
+        private readonly ISpecialistRepository _specialistRepository;
+
+        public SpecialistsController(
+            IMapper mapper,
+            ISpecialistRepository specialistRepository
+            )
         {
-            return Ok("All Specialists");
+            _mapper = mapper;
+            _specialistRepository = specialistRepository;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<SpecialistResponseDto[]>> GetAllSpecialists()
+        {
+            var specialists = await _specialistRepository.GetAllAsync();
+
+            return _mapper.Map<SpecialistResponseDto[]>(specialists);
         }
     }
 }
