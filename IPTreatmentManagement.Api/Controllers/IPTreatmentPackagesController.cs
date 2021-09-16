@@ -30,7 +30,12 @@ namespace IPTreatmentManagement.Api.Controllers
             _iPTreatmentPackageRepository = iPTreatmentPackageRepository;
         }
 
+        /// <summary>
+        /// Get all IPTreatmentPackage details
+        /// </summary>
+        /// <returns>list of IPTreatmentPackage</returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IPTreatmentPackageResponseDto[]>> GetAllIPTreatmentPackages()
         {
             var iPTreatmentPackages = await _iPTreatmentPackageRepository.GetAllAsync();
@@ -38,7 +43,15 @@ namespace IPTreatmentManagement.Api.Controllers
             return _mapper.Map<IPTreatmentPackageResponseDto[]>(iPTreatmentPackages);
         }
 
+        /// <summary>
+        /// Get a specific IPTreatmentPackage Details by given name
+        /// </summary>
+        /// <param name="packageName">Package name to search with</param>
+        /// <returns>IPTreatmentPackage details  if found</returns>
+        /// <response code="404">No IPTreatmentPackage found with provided name</response>
         [HttpGet("{packageName}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponseModel))]
         public async Task<ActionResult<IPTreatmentPackageResponseDto>> GetIPTreatmentPackageByName(string packageName)
         {
             var iPTreatmentPackage = await _iPTreatmentPackageRepository.GetByNameAsync(packageName);

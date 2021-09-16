@@ -26,7 +26,12 @@ namespace IPTreatmentManagement.Api.Controllers
             _specialistRepository = specialistRepository;
         }
 
+        /// <summary>
+        /// Get all Specialist Details
+        /// </summary>
+        /// <returns>list of Specialist</returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<SpecialistResponseDto[]>> GetAllSpecialists()
         {
             var specialists = await _specialistRepository.GetAllAsync();

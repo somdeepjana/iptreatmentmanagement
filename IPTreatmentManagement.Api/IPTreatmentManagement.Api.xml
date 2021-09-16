@@ -4,5 +4,25 @@
         <name>IPTreatmentManagement.Api</name>
     </assembly>
     <members>
+        <member name="M:IPTreatmentManagement.Api.Controllers.IPTreatmentPackagesController.GetAllIPTreatmentPackages">
+            <summary>
+            Get all IPTreatmentPackage details
+            </summary>
+            <returns>list of IPTreatmentPackage</returns>
+        </member>
+        <member name="M:IPTreatmentManagement.Api.Controllers.IPTreatmentPackagesController.GetIPTreatmentPackageByName(System.String)">
+            <summary>
+            Get a specific IPTreatmentPackage Details by given name
+            </summary>
+            <param name="packageName">Package name to search with</param>
+            <returns>IPTreatmentPackage details  if found</returns>
+            <response code="404">No IPTreatmentPackage found with provided name</response>
+        </member>
+        <member name="M:IPTreatmentManagement.Api.Controllers.SpecialistsController.GetAllSpecialists">
+            <summary>
+            Get all Specialist Details
+            </summary>
+            <returns>list of Specialist</returns>
+        </member>
     </members>
 </doc>
