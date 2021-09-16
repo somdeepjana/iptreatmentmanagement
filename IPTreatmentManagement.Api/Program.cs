@@ -1,4 +1,6 @@
+using IPTreatmentManagement.Api.Seeds;
 using IPTreatmentManagement.EFCore.Data;
+using IPTreatmentManagement.EFCore.Data.Seeds;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,9 +22,14 @@ namespace IPTreatmentManagement.Api
             {
                 var services = scope.ServiceProvider;
 
+                var logger = services.GetRequiredService<ILogger<Program>>();
                 var env = services.GetRequiredService<IWebHostEnvironment>();
-
                 var dbContext = services.GetRequiredService<ApplicationDbContext>();
+
+                if (dbContext.SeedIPTreatmentPackages())
+                    logger.LogInformation("IPTreatmentPackages Data seeded into the database");
+                if (dbContext.SeedSpecialists())
+                    logger.LogInformation("Specialist Data seeded into the database");
             }
 
                 host.Run();
