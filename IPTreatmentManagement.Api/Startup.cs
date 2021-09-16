@@ -1,7 +1,11 @@
+using IPTreatmentManagement.EFCore.Data;
+using IPTreatmentManagement.EFCore.Data.Repositories;
+using IPTreatmentManagement.Models.RepositorieInterfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +32,11 @@ namespace IPTreatmentManagement.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseInMemoryDatabase("IPTreatmentManagementDb"));
+            services.AddScoped<IIPTreatmentPackageRepository, IPTreatmentPackageRepository>();
+            services.AddScoped<ISpecialistRepository, SpecialistRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
