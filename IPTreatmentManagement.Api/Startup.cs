@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace IPTreatmentManagement.Api
@@ -40,7 +41,6 @@ namespace IPTreatmentManagement.Api
 
             services.AddAutoMapper(typeof(IPTreatmentManagement.Models.MappingPofile));
 
-            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IPTreatmentManagement.Api", Version = "v1" });
@@ -49,6 +49,10 @@ namespace IPTreatmentManagement.Api
                 var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
                 c.IncludeXmlComments(cmlCommentsFullPath);
             });
+
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
