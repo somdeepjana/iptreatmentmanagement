@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IPTreatmentManagement.Models.RepositorieInterfaces
 {
-    public interface IIPTreatmentPackageRepository
+    public interface IIPTreatmentPackageRepository : IRepository
     {
         IEnumerable<IPTreatmentPackageEntity> GetAllAsync();
         IPTreatmentPackageEntity GetByNameAsync();
