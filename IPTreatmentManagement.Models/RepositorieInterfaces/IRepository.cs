@@ -8,6 +8,6 @@ namespace IPTreatmentManagement.Models.RepositorieInterfaces
 {
     public interface IRepository
     {
-        bool SaveChangesAsync();
+        Task<bool> SaveChangesAsync();
     }
 }

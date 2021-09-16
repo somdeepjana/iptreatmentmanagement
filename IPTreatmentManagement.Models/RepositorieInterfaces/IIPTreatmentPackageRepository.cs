@@ -9,7 +9,7 @@ namespace IPTreatmentManagement.Models.RepositorieInterfaces
 {
     public interface IIPTreatmentPackageRepository : IRepository
     {
-        IEnumerable<IPTreatmentPackageEntity> GetAllAsync();
-        IPTreatmentPackageEntity GetByNameAsync();
+        Task<IEnumerable<IPTreatmentPackageEntity>> GetAllAsync();
+        Task<IPTreatmentPackageEntity> GetByNameAsync();
     }
 }
