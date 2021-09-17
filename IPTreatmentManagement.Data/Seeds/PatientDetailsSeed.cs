@@ -23,7 +23,7 @@ namespace IPTreatmentManagement.EFCore.Data.Seeds
     }
     public class PatientDetailsSeed
     {
-        public IEnumerable<PatientDetailsEntity> GetAll
+        public IEnumerable<PatientEntity> GetAll
         {
             get
             {
@@ -31,16 +31,16 @@ namespace IPTreatmentManagement.EFCore.Data.Seeds
             }
         }
 
-        private IEnumerable<PatientDetailsEntity> _patientDetails = new List<PatientDetailsEntity>
+        private IEnumerable<PatientEntity> _patientDetails = new List<PatientEntity>
         {
-            new PatientDetailsEntity()
+            new PatientEntity()
             {
                 Name = "Alex",
                 Age = 30,
                 Ailment = AilmentDomain.Orthopaedics,
                 IPTreatmentPackageEntityID = 1
             },
-            new PatientDetailsEntity()
+            new PatientEntity()
             {
                 Name = "Brian",
                 Age = 41,

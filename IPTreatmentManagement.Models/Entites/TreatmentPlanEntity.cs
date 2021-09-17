@@ -12,12 +12,13 @@ namespace IPTreatmentManagement.Models.Entites
         [Key]
         public int Id { get; set; }        
         [Required]
-        public DateTime TreatmentCommencementDate { get; set; }     
+        public DateTime TreatmentCommencementDate { get; set; }
 
-        //Navigation Property
-        public int IPTreatmentPackageEntityId { get; set; }       
+        //public int I { get; set; }
 
+        public int IPTreatmentPackageEntityId { get; set; }
         public IPTreatmentPackageEntity IPTreatmentPackageEntity { get; set; }
+
         public int SpecialistEntityId { get; set; }
         public SpecialistEntity SpecialistEntity { get; set; }
     }

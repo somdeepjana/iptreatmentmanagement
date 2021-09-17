@@ -20,7 +20,7 @@ namespace IPTreatmentManagement.Api.Controllers
     {
         private readonly ILogger<FormulateTreatmentTimetableController> _logger;
         private readonly IMapper _mapper;
-        private readonly IPatientDetailsRepository _patientDetailsRepository;
+        private readonly IPatientRepository _patientRepository;
         private readonly ITreatmentPlanRepository _treatmentPlanRepository;
         private readonly IIPTreatmentPackageRepository _iPTreatmentPackageRepository;
         private readonly ISpecialistRepository _specialistRepository;
@@ -28,23 +28,23 @@ namespace IPTreatmentManagement.Api.Controllers
         public FormulateTreatmentTimetableController(
             ILogger<FormulateTreatmentTimetableController> logger,
             IMapper mapper,
-            IPatientDetailsRepository patientDetailsRepository,
+            IPatientRepository patientRepository,
             ITreatmentPlanRepository treatmentPlanRepository,
             IIPTreatmentPackageRepository iPTreatmentPackageRepository,
             ISpecialistRepository specialistRepository)
         {
             _logger = logger;
             _mapper = mapper;
-            _patientDetailsRepository = patientDetailsRepository;
+            _patientRepository = patientRepository;
             _treatmentPlanRepository = treatmentPlanRepository;
             _iPTreatmentPackageRepository = iPTreatmentPackageRepository;
             _specialistRepository = specialistRepository;
         }       
 
         [HttpPost]
-        public async Task<ActionResult<TreatmentPlanResponseDTO>> GetTreatmentPlanDetails(PatientServiceRequestDTO patient)
+        public async Task<ActionResult<TreatmentPlanResponseDTO>> GetTreatmentPlanDetails(PatientRequestDTO patient)
         {
-            var patientEntity = _mapper.Map<PatientDetailsEntity>(patient);
+            var patientEntity = _mapper.Map<PatientEntity>(patient);
             var iPTreatmentPackage = await _iPTreatmentPackageRepository.GetByNameAsync(patient.TreatmentPackageName);
             if(iPTreatmentPackage is null || iPTreatmentPackage.AilmentCategory != patient.Ailment)
             {
@@ -59,7 +59,7 @@ namespace IPTreatmentManagement.Api.Controllers
                 return NotFound(error);
             }
             patientEntity.IPTreatmentPackageEntityID = iPTreatmentPackage.Id;
-            await _patientDetailsRepository.AddAsync(patientEntity);           
+            await _patientRepository.AddAsync(patientEntity);           
 
             var specialist = (await _specialistRepository.GetSpecialistByAreaOfExpertseAsync(patient.Ailment)).FirstOrDefault();
             if(specialist is null)

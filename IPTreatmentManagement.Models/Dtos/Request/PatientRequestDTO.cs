@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IPTreatmentManagement.Models.Dtos.Request
 {
-    public class PatientServiceRequestDTO
+    public class PatientRequestDTO
     {
         [Required]
         public string Name { get; set; }

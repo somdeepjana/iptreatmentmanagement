@@ -39,7 +39,7 @@ namespace IPTreatmentManagement.Api
             services.AddScoped<IIPTreatmentPackageRepository, IPTreatmentPackageRepository>();
             services.AddScoped<ISpecialistRepository, SpecialistRepository>();
             services.AddScoped<ITreatmentPlanRepository, TreatmentPlanRepository>();
-            services.AddScoped<IPatientDetailsRepository, PatientDetailsRepository>();
+            services.AddScoped<IPatientRepository, PatientRepository>();
 
             services.AddAutoMapper(typeof(IPTreatmentManagement.Models.MappingPofile));
 

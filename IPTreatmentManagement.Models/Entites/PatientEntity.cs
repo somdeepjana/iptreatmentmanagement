@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IPTreatmentManagement.Models.Entites
 {
-    public class PatientDetailsEntity
+    public class PatientEntity
     {
         [Key]
         public int Id { get; set; }

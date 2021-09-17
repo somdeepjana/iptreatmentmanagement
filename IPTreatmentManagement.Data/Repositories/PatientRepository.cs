@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace IPTreatmentManagement.EFCore.Data.Repositories
 {
-    public class PatientDetailsRepository : Repository, IPatientDetailsRepository
+    public class PatientRepository : Repository, IPatientRepository
     {
-        public PatientDetailsRepository(ApplicationDbContext context) : base(context)
+        public PatientRepository(ApplicationDbContext context) : base(context)
         {
         }
 
-        public async Task AddAsync(PatientDetailsEntity patient)
+        public async Task AddAsync(PatientEntity patient)
         {
             patient.Id = 0;
             patient.IPTreatmentPackageEntity = null;

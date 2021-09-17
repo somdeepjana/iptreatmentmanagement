@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace IPTreatmentManagement.Models.RepositorieInterfaces
 {
-    public interface IPatientDetailsRepository
+    public interface IPatientRepository
     {
-        Task AddAsync(PatientDetailsEntity patient);
+        Task AddAsync(PatientEntity patient);
     }
 }
