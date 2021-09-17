@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IPTreatmentManagement.EFCore.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace IPTreatmentManagement.Api.Controllers
 {
@@ -15,15 +17,14 @@ namespace IPTreatmentManagement.Api.Controllers
     public class SpecialistsController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly ISpecialistRepository _specialistRepository;
+        private readonly ApplicationDbContext _context;
 
         public SpecialistsController(
             IMapper mapper,
-            ISpecialistRepository specialistRepository
-            )
+            ApplicationDbContext context)
         {
             _mapper = mapper;
-            _specialistRepository = specialistRepository;
+            _context = context;
         }
 
         /// <summary>
@@ -34,7 +35,7 @@ namespace IPTreatmentManagement.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<SpecialistResponseDto[]>> GetAllSpecialists()
         {
-            var specialists = await _specialistRepository.GetAllAsync();
+            var specialists = await _context.Specialists.ToListAsync();
 
             return _mapper.Map<SpecialistResponseDto[]>(specialists);
         }
