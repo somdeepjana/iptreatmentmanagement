@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
 using IPTreatmentManagement.Models.Dtos.Response;
-using IPTreatmentManagement.Models.RepositorieInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using IPTreatmentManagement.EFCore.Data;
 using Microsoft.EntityFrameworkCore;
