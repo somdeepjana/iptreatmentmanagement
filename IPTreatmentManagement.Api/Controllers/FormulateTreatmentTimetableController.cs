@@ -26,13 +26,12 @@ namespace IPTreatmentManagement.Api.Controllers
         {
             _logger = logger;
             _mapper = mapper;
-        }
-
-        
+        }       
 
         [HttpPost]
         public async Task<ActionResult<TreatmentPlanResponseDTO>> GetTreatmentPlanDetails(PatientServiceRequestDTO patient)
         {
+            var patientDetails = _mapper.Map<PatientDetailsEntity>(patient);
             var entity = new TreatmentPlanEntity()
             {
                 Id = 100,
