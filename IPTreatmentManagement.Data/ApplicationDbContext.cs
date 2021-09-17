@@ -14,6 +14,8 @@ namespace IPTreatmentManagement.EFCore.Data
         {
         }
 
+        public DbSet<TreatmentPlanEntity> TreatmentPlans { get; set; }
+        //public DbSet<PatientDetailsEntity> Patients { get; set; }
         public DbSet<IPTreatmentPackageEntity> IPTreatmentPackages { get; set; }
         public DbSet<SpecialistEntity> Specialists { get; set; }
 
