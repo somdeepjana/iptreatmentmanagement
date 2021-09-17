@@ -1,23 +1,15 @@
 using IPTreatmentManagement.EFCore.Data;
-using IPTreatmentManagement.EFCore.Data.Repositories;
-using IPTreatmentManagement.Models.RepositorieInterfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace IPTreatmentManagement.Api
 {
@@ -36,8 +28,6 @@ namespace IPTreatmentManagement.Api
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("IPTreatmentManagementDb"));
-            services.AddScoped<IIPTreatmentPackageRepository, IPTreatmentPackageRepository>();
-            services.AddScoped<ISpecialistRepository, SpecialistRepository>();
 
             services.AddAutoMapper(typeof(IPTreatmentManagement.Models.MappingPofile));
 

@@ -18,7 +18,7 @@ namespace IPTreatmentManagement.Api
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            using(var scope= host.Services.CreateScope())
+            using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
 
@@ -26,13 +26,19 @@ namespace IPTreatmentManagement.Api
                 var env = services.GetRequiredService<IWebHostEnvironment>();
                 var dbContext = services.GetRequiredService<ApplicationDbContext>();
 
+                dbContext.Database.EnsureCreated();
+
                 if (dbContext.SeedIPTreatmentPackages())
                     logger.LogInformation("IPTreatmentPackages Data seeded into the database");
                 if (dbContext.SeedSpecialists())
                     logger.LogInformation("Specialist Data seeded into the database");
+                if (dbContext.SeedTreatmentPlan())
+                    logger.LogInformation("TreatmentPlan Data seeded into the database");
+                if (dbContext.SeedPatientData())
+                    logger.LogInformation("Patient Data seeded into the database");
             }
 
-                host.Run();
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

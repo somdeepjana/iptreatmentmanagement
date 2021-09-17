@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IPTreatmentManagement.Models.Dtos.Response;
+using IPTreatmentManagement.Models.Dtos.Request;
 using IPTreatmentManagement.Models.Entites;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,22 @@ namespace IPTreatmentManagement.Models
             CreateMap<IPTreatmentPackageEntity, IPTreatmentPackageResponseDto>();
 
             CreateMap<SpecialistEntity, SpecialistResponseDto>();
+
+            CreateMap<TreatmentPlanEntity, TreatmentPlanResponseDTO>()
+                .ForMember(td => td.PackageName,
+                o => o.MapFrom(te => te.IPTreatmentPackageEntity.TreatmentPackageName))
+                .ForMember(td => td.Cost,
+                o => o.MapFrom(te => te.IPTreatmentPackageEntity.Cost))
+                .ForMember(td => td.TestDetails,
+                o => o.MapFrom(td => td.IPTreatmentPackageEntity.TestDetails))
+                .ForMember(td => td.Specialist,
+                o => o.MapFrom(td => td.SpecialistEntity.Name))
+                .ForMember(td => td.TreatmentEndDate,
+                o => o.MapFrom(te => te.TreatmentCommencementDate.AddDays(te.IPTreatmentPackageEntity.TreatmentDurationInDays)));
+
+
+            CreateMap<PatientRequestDTO, PatientEntity>();
+                
         }
     }
 }
