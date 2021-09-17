@@ -31,7 +31,7 @@ namespace IPTreatmentManagement.Models
                 o => o.MapFrom(te => te.TreatmentCommencementDate.AddDays(te.IPTreatmentPackageEntity.TreatmentDurationInDays)));
 
 
-            CreateMap<PatientServiceRequestDTO, PatientDetailsEntity>();
+            CreateMap<PatientRequestDTO, PatientEntity>();
                 
         }
     }

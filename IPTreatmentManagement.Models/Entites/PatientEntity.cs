@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IPTreatmentManagement.Models.Entites
 {
-    public class PatientDetailsEntity
+    public class PatientEntity
     {
         [Key]
         public int Id { get; set; }
@@ -15,13 +15,5 @@ namespace IPTreatmentManagement.Models.Entites
         public string Name { get; set; }
         [Required]
         public int Age { get; set; }
-        [Required]
-        public AilmentDomain Ailment { get; set; }        
-        
-        [Required]
-        public int IPTreatmentPackageEntityID { get; set; }
-
-        //Navigation Property
-        public IPTreatmentPackageEntity IPTreatmentPackageEntity { get; set; }
     }
 }
