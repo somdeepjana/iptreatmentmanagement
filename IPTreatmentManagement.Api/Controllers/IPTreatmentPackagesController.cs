@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using IPTreatmentManagement.Api.Models;
+using IPTreatmentManagement.Models.OperationalModels;
 using IPTreatmentManagement.Models.Dtos.Response;
 using IPTreatmentManagement.Models.RepositorieInterfaces;
 using Microsoft.AspNetCore.Http;
@@ -62,7 +62,8 @@ namespace IPTreatmentManagement.Api.Controllers
                 {
                     ErrorId = Guid.NewGuid().ToString(),
                     Message = $"No IPTreatmentPackage by name '{packageName}' found",
-                    Type = ErrorTypes.UserSideError.ToString()
+                    Type = ErrorTypes.UserSideError.ToString(),
+                    ApplicationStatusCode= (int)ApplicationStatusCodes.IPTreatmentPackageEntityNotFound
                 };
                 //_logger.LogTrace()
                 return NotFound(error);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IPTreatmentManagement.Api.Models
+namespace IPTreatmentManagement.Models.OperationalModels
 {
     public enum ErrorTypes
     {
@@ -16,6 +16,7 @@ namespace IPTreatmentManagement.Api.Models
         public string ErrorId { get; set; }
         public string Message { get; set; }
         public string Type { get; set; }
+        public int ApplicationStatusCode { get; set; }
 
         private readonly IEnumerable<string> _probabbleResolves = new List<string>();
 
