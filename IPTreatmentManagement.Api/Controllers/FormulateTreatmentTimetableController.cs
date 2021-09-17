@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IPTreatmentManagement.EFCore.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace IPTreatmentManagement.Api.Controllers
 {
@@ -20,25 +22,16 @@ namespace IPTreatmentManagement.Api.Controllers
     {
         private readonly ILogger<FormulateTreatmentTimetableController> _logger;
         private readonly IMapper _mapper;
-        private readonly IPatientRepository _patientRepository;
-        private readonly ITreatmentPlanRepository _treatmentPlanRepository;
-        private readonly IIPTreatmentPackageRepository _iPTreatmentPackageRepository;
-        private readonly ISpecialistRepository _specialistRepository;
+        private readonly ApplicationDbContext _context;
 
         public FormulateTreatmentTimetableController(
             ILogger<FormulateTreatmentTimetableController> logger,
             IMapper mapper,
-            IPatientRepository patientRepository,
-            ITreatmentPlanRepository treatmentPlanRepository,
-            IIPTreatmentPackageRepository iPTreatmentPackageRepository,
-            ISpecialistRepository specialistRepository)
+            ApplicationDbContext context)
         {
             _logger = logger;
             _mapper = mapper;
-            _patientRepository = patientRepository;
-            _treatmentPlanRepository = treatmentPlanRepository;
-            _iPTreatmentPackageRepository = iPTreatmentPackageRepository;
-            _specialistRepository = specialistRepository;
+            _context = context;
         }       
 
         [HttpPost]
@@ -46,7 +39,8 @@ namespace IPTreatmentManagement.Api.Controllers
         {
             var patientEntity = _mapper.Map<PatientEntity>(patient);
 
-            var iPTreatmentPackage = await _iPTreatmentPackageRepository.GetByNameAsync(patient.TreatmentPackageName);
+            var iPTreatmentPackage = await _context.IPTreatmentPackages
+                .FirstOrDefaultAsync(i=>i.TreatmentPackageName== patient.TreatmentPackageName);
             if(iPTreatmentPackage is null)
             {
                 var error = new ErrorResponseModel()
@@ -60,7 +54,9 @@ namespace IPTreatmentManagement.Api.Controllers
                 return NotFound(error);
             }
 
-            var specialist = (await _specialistRepository.GetSpecialistByAreaOfExpertseAsync(iPTreatmentPackage.AilmentCategory)).FirstOrDefault();
+            //var specialist = (await _specialistRepository.GetSpecialistByAreaOfExpertseAsync(iPTreatmentPackage.AilmentCategory)).FirstOrDefault();
+            var specialist = await _context.Specialists
+                .Where(s => s.AreaOfExpertise == iPTreatmentPackage.AilmentCategory).FirstOrDefaultAsync();
             if(specialist is null)
             {
                 var error = new ErrorResponseModel()
@@ -83,8 +79,9 @@ namespace IPTreatmentManagement.Api.Controllers
                 SpecialistEntityId = specialist.Id
                 //SpecialistEntity = specialist
             };
-            await _treatmentPlanRepository.AddAsync(treatmentPlan);
-            await _treatmentPlanRepository.SaveChangesAsync();
+            //await _treatmentPlanRepository.AddAsync(treatmentPlan);
+            await _context.AddAsync(treatmentPlan);
+            await _context.SaveChangesAsync();
 
             return _mapper.Map<TreatmentPlanResponseDTO>(treatmentPlan);
         }
