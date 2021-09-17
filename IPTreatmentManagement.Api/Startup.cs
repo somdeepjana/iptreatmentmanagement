@@ -38,6 +38,8 @@ namespace IPTreatmentManagement.Api
                 options.UseInMemoryDatabase("IPTreatmentManagementDb"));
             services.AddScoped<IIPTreatmentPackageRepository, IPTreatmentPackageRepository>();
             services.AddScoped<ISpecialistRepository, SpecialistRepository>();
+            services.AddScoped<ITreatmentPlanRepository, TreatmentPlanRepository>();
+            services.AddScoped<IPatientDetailsRepository, PatientDetailsRepository>();
 
             services.AddAutoMapper(typeof(IPTreatmentManagement.Models.MappingPofile));
 

@@ -81,8 +81,8 @@ namespace IPTreatmentManagement.Api.Controllers
                 SpecialistEntityId = specialist.Id,
             };
             await _treatmentPlanRepository.AddAsync(treatmentPlan);
-            //await _treatmentPlanRepository.SaveChangesAsync();
-            var treatmentPlanToReturn = _treatmentPlanRepository.GetTreatmentPlanAsync(treatmentPlan.Id);           
+            await _treatmentPlanRepository.SaveChangesAsync();
+            var treatmentPlanToReturn = await _treatmentPlanRepository.GetTreatmentPlanAsync(treatmentPlan.Id);           
 
 
             return _mapper.Map<TreatmentPlanResponseDTO>(treatmentPlanToReturn);
