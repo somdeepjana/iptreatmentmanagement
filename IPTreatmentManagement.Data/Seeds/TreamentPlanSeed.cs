@@ -16,12 +16,8 @@ namespace IPTreatmentManagement.EFCore.Data.Seeds
 
             foreach (var treatmentPlans in new TreamentPlanSeedData().GetAll)
             {
-                //if (context.TreatmentPlans.FirstOrDefault(
-                //    i => i.TreatmentPackageName == iPTreatmentPackage.TreatmentPackageName) == null)
-                //    context.IPTreatmentPackages.Add(iPTreatmentPackage);
                 context.TreatmentPlans.Add(treatmentPlans);
             }
-
             return context.SaveChanges() > 0;
         }
     }

@@ -34,6 +34,8 @@ namespace IPTreatmentManagement.Api
                     logger.LogInformation("Specialist Data seeded into the database");
                 if (dbContext.SeedTreatmentPlan())
                     logger.LogInformation("TreatmentPlan Data seeded into the database");
+                if (dbContext.SeedPatientData())
+                    logger.LogInformation("Patient Data seeded into the database");
             }
 
             host.Run();
