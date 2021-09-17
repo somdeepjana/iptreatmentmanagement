@@ -51,7 +51,6 @@ namespace IPTreatmentManagement.Api.Controllers
                 return NotFound(error);
             }
 
-            //var specialist = (await _specialistRepository.GetSpecialistByAreaOfExpertseAsync(iPTreatmentPackage.AilmentCategory)).FirstOrDefault();
             var specialist = await _context.Specialists
                 .Where(s => s.AreaOfExpertise == iPTreatmentPackage.AilmentCategory).FirstOrDefaultAsync();
             if(specialist is null)
@@ -71,12 +70,9 @@ namespace IPTreatmentManagement.Api.Controllers
             {
                 PatientEntity = patientEntity,
                 IPTreatmentPackageEntityId = iPTreatmentPackage.Id,
-                //IPTreatmentPackageEntity= iPTreatmentPackage,
                 TreatmentCommencementDate = patient.TreatmentCommencementDate,
                 SpecialistEntityId = specialist.Id
-                //SpecialistEntity = specialist
             };
-            //await _treatmentPlanRepository.AddAsync(treatmentPlan);
             await _context.AddAsync(treatmentPlan);
             await _context.SaveChangesAsync();
 

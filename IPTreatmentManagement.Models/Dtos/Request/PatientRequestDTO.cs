@@ -14,8 +14,8 @@ namespace IPTreatmentManagement.Models.Dtos.Request
         public string Name { get; set; }
         [Required]
         public int Age { get; set; }
-        [Required]
-        public AilmentDomain Ailment { get; set; }
+        //[Required]
+        //public AilmentDomain Ailment { get; set; }
         [Required]
         public string TreatmentPackageName { get; set; }
         [Required]
