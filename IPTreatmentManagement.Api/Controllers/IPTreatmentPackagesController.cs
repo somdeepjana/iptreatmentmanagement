@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IPTreatmentManagement.EFCore.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace IPTreatmentManagement.Api.Controllers
 {
@@ -18,16 +20,16 @@ namespace IPTreatmentManagement.Api.Controllers
     {
         private readonly ILogger<IPTreatmentPackagesController> _logger;
         private readonly IMapper _mapper;
-        private readonly IIPTreatmentPackageRepository _iPTreatmentPackageRepository;
+        private readonly ApplicationDbContext _context;
 
         public IPTreatmentPackagesController(
             ILogger<IPTreatmentPackagesController> logger,
             IMapper mapper,
-            IIPTreatmentPackageRepository iPTreatmentPackageRepository)
+            ApplicationDbContext context)
         {
             _logger = logger;
             _mapper = mapper;
-            _iPTreatmentPackageRepository = iPTreatmentPackageRepository;
+            _context = context;
         }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace IPTreatmentManagement.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IPTreatmentPackageResponseDto[]>> GetAllIPTreatmentPackages()
         {
-            var iPTreatmentPackages = await _iPTreatmentPackageRepository.GetAllAsync();
+            var iPTreatmentPackages = await _context.IPTreatmentPackages.ToListAsync();
 
             return _mapper.Map<IPTreatmentPackageResponseDto[]>(iPTreatmentPackages);
         }
@@ -54,7 +56,8 @@ namespace IPTreatmentManagement.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponseModel))]
         public async Task<ActionResult<IPTreatmentPackageResponseDto>> GetIPTreatmentPackageByName(string packageName)
         {
-            var iPTreatmentPackage = await _iPTreatmentPackageRepository.GetByNameAsync(packageName);
+            var iPTreatmentPackage = await _context.IPTreatmentPackages
+                .FirstOrDefaultAsync(i=>i.TreatmentPackageName==packageName);
 
             if (iPTreatmentPackage == null)
             {
