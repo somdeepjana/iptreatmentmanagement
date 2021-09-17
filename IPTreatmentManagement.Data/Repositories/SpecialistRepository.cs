@@ -19,5 +19,15 @@ namespace IPTreatmentManagement.EFCore.Data.Repositories
         {
             return await _context.Specialists.ToListAsync();
         }
+
+        public async Task<IEnumerable<SpecialistEntity>> GetSpecialistByAreaOfExpertseAsync(AilmentDomain ailment)
+        {
+            return await _context.Specialists.Where(x => x.AreaOfExpertise == ailment).ToListAsync();
+        }
+
+        public async Task<SpecialistEntity> GetSpecialistByNameAsync(string specialistName, AilmentDomain ailment)
+        {
+            return await _context.Specialists.FirstOrDefaultAsync(x => x.Name == specialistName && x.AreaOfExpertise == ailment);
+        }
     }
 }
