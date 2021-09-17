@@ -46,12 +46,12 @@ namespace IPTreatmentManagement.Api.Controllers
         {
             var patientEntity = _mapper.Map<PatientDetailsEntity>(patient);
             var iPTreatmentPackage = await _iPTreatmentPackageRepository.GetByNameAsync(patient.TreatmentPackageName);
-            if(iPTreatmentPackage is null)
+            if(iPTreatmentPackage is null || iPTreatmentPackage.AilmentCategory != patient.Ailment)
             {
                 var error = new ErrorResponseModel()
                 {
                     ErrorId = Guid.NewGuid().ToString(),
-                    Message = $"No IPTreatmentPackage by name '{patient.TreatmentPackageName}' found",
+                    Message = $"No IPTreatmentPackage by name '{patient.TreatmentPackageName}' or '{patient.Ailment}' found ",
                     Type = ErrorTypes.UserSideError.ToString(),
                     ApplicationStatusCode = (int)ApplicationStatusCodes.IPTreatmentPackageEntityNotFound
                 };
