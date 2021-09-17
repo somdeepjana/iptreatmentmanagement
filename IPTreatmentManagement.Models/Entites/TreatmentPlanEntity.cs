@@ -14,7 +14,8 @@ namespace IPTreatmentManagement.Models.Entites
         [Required]
         public DateTime TreatmentCommencementDate { get; set; }
 
-        //public int I { get; set; }
+        public int PatientEntityId { get; set; }
+        public PatientEntity PatientEntity { get; set; }
 
         public int IPTreatmentPackageEntityId { get; set; }
         public IPTreatmentPackageEntity IPTreatmentPackageEntity { get; set; }

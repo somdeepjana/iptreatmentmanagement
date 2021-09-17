@@ -17,7 +17,6 @@ namespace IPTreatmentManagement.EFCore.Data.Repositories
         public async Task AddAsync(PatientEntity patient)
         {
             patient.Id = 0;
-            patient.IPTreatmentPackageEntity = null;
             await _context.Patients.AddAsync(patient);
         }
     }

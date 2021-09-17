@@ -23,7 +23,6 @@ namespace IPTreatmentManagement.EFCore.Data.Seeds
     }
     public class TreamentPlanSeedData
     {
-
         public IEnumerable<TreatmentPlanEntity> GetAll
         {
             get
@@ -35,15 +34,17 @@ namespace IPTreatmentManagement.EFCore.Data.Seeds
         private IEnumerable<TreatmentPlanEntity> _treatmentPlans = new List<TreatmentPlanEntity>
         {
             new TreatmentPlanEntity()
-            {                
+            {
+                PatientEntityId = 1,
                 IPTreatmentPackageEntityId = 1,
                 SpecialistEntityId = 1,
                 TreatmentCommencementDate = DateTime.Now
             },
             new TreatmentPlanEntity()
-            {                
-                IPTreatmentPackageEntityId = 2,
-                SpecialistEntityId = 2,
+            {
+                PatientEntityId = 2,
+                IPTreatmentPackageEntityId = 3,
+                SpecialistEntityId = 3,
                 TreatmentCommencementDate = DateTime.Now.AddDays(1)
             }
         };

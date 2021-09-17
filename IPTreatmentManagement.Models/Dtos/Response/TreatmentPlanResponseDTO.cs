@@ -9,6 +9,7 @@ namespace IPTreatmentManagement.Models.Dtos.Response
 {
     public class TreatmentPlanResponseDTO
     {
+        public int Id { get; set; }
         [Required]
         public string PackageName { get; set; }
         [Required]

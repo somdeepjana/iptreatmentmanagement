@@ -45,23 +45,22 @@ namespace IPTreatmentManagement.Api.Controllers
         public async Task<ActionResult<TreatmentPlanResponseDTO>> GetTreatmentPlanDetails(PatientRequestDTO patient)
         {
             var patientEntity = _mapper.Map<PatientEntity>(patient);
+
             var iPTreatmentPackage = await _iPTreatmentPackageRepository.GetByNameAsync(patient.TreatmentPackageName);
-            if(iPTreatmentPackage is null || iPTreatmentPackage.AilmentCategory != patient.Ailment)
+            if(iPTreatmentPackage is null)
             {
                 var error = new ErrorResponseModel()
                 {
                     ErrorId = Guid.NewGuid().ToString(),
-                    Message = $"No IPTreatmentPackage by name '{patient.TreatmentPackageName}' or '{patient.Ailment}' found ",
+                    Message = $"No IPTreatmentPackage by name '{patient.TreatmentPackageName}' is found ",
                     Type = ErrorTypes.UserSideError.ToString(),
                     ApplicationStatusCode = (int)ApplicationStatusCodes.IPTreatmentPackageEntityNotFound
                 };
                 //_logger.LogTrace()
                 return NotFound(error);
             }
-            patientEntity.IPTreatmentPackageEntityID = iPTreatmentPackage.Id;
-            await _patientRepository.AddAsync(patientEntity);           
 
-            var specialist = (await _specialistRepository.GetSpecialistByAreaOfExpertseAsync(patient.Ailment)).FirstOrDefault();
+            var specialist = (await _specialistRepository.GetSpecialistByAreaOfExpertseAsync(iPTreatmentPackage.AilmentCategory)).FirstOrDefault();
             if(specialist is null)
             {
                 var error = new ErrorResponseModel()
@@ -74,18 +73,20 @@ namespace IPTreatmentManagement.Api.Controllers
                 //_logger.LogTrace()
                 return NotFound(error);
             }
+
             var treatmentPlan = new TreatmentPlanEntity()
             {
+                PatientEntity = patientEntity,
                 IPTreatmentPackageEntityId = iPTreatmentPackage.Id,
+                //IPTreatmentPackageEntity= iPTreatmentPackage,
                 TreatmentCommencementDate = patient.TreatmentCommencementDate,
-                SpecialistEntityId = specialist.Id,
+                SpecialistEntityId = specialist.Id
+                //SpecialistEntity = specialist
             };
             await _treatmentPlanRepository.AddAsync(treatmentPlan);
             await _treatmentPlanRepository.SaveChangesAsync();
-            var treatmentPlanToReturn = await _treatmentPlanRepository.GetTreatmentPlanAsync(treatmentPlan.Id);           
 
-
-            return _mapper.Map<TreatmentPlanResponseDTO>(treatmentPlanToReturn);
+            return _mapper.Map<TreatmentPlanResponseDTO>(treatmentPlan);
         }
     }
 }

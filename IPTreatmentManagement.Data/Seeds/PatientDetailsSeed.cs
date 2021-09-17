@@ -36,16 +36,12 @@ namespace IPTreatmentManagement.EFCore.Data.Seeds
             new PatientEntity()
             {
                 Name = "Alex",
-                Age = 30,
-                Ailment = AilmentDomain.Orthopaedics,
-                IPTreatmentPackageEntityID = 1
+                Age = 30
             },
             new PatientEntity()
             {
                 Name = "Brian",
-                Age = 41,
-                Ailment = AilmentDomain.Urology,
-                IPTreatmentPackageEntityID = 2
+                Age = 41
             }
         };
     }
