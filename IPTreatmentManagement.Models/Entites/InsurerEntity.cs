@@ -9,6 +9,7 @@ namespace IPTreatmentManagement.Models.Entites
 {
     public class InsurerEntity
     {
+        [Key]
         public int Id { get; set; }
         [Required]
         public string InsurerName { get; set; }
