@@ -9,6 +9,6 @@ namespace IPTreatmentManagement.Models.RepositorieInterfaces
 {
     public interface IPatientDetailsRepository
     {
-        void Add(PatientDetailsEntity patient);
+        void AddAsync(PatientDetailsEntity patient);
     }
 }

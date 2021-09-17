@@ -15,17 +15,17 @@ namespace IPTreatmentManagement.EFCore.Data.Repositories
         {
 
         }
-
-        public Task<TreatmentPlanEntity> GetTreatmentTimeTableAsync(PatientDetailsEntity patient)
+        public async void AddAsync(TreatmentPlanEntity treatmentPlan)
         {
-            throw new NotImplementedException();
+            treatmentPlan.Id = 0;
+            treatmentPlan.IPTreatmentPackageEntity = null;
+            treatmentPlan.SpecialistEntity = null;
+            await _context.TreatmentPlans.AddAsync(treatmentPlan);
         }
-        //public Task<TreatmentPlanEntity> GetTreatmentTimeTableAsync(PatientDetailsEntity patient)
-        //{
 
-        //    var packageDetail = _context.IPTreatmentPackages
-        //                                .Where(x => x.AilmentCategory.Equals(patient.Ailment) && 
-        //                                x.TreatmentPackageName == patient.TreatmentPackageName).FirstOrDefault();
-        //}
+        public async Task<TreatmentPlanEntity> GetTreatmentPlanAsync(int treatmentPlanId)
+        {
+            return await _context.TreatmentPlans.FindAsync(treatmentPlanId);
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace IPTreatmentManagement.Models.RepositorieInterfaces
 {
     public interface ITreatmentPlanRepository : IRepository
     {
-        Task<TreatmentPlanEntity> GetTreatmentTimeTableAsync(PatientDetailsEntity patient);
+        void AddAsync(TreatmentPlanEntity treatmentPlan);        
+        Task<TreatmentPlanEntity> GetTreatmentPlanAsync(int treatmentPlanId);
     }
 }
