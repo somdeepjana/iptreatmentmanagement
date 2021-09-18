@@ -10,10 +10,10 @@ namespace IPTreatmentManagement.Models.Dtos.Request
     public class InitiateClaimRequestDto
     {
         [Required]
-        public string PatientName { get; set; }
+        public int PatientId { get; set; }
         [Required]
-        public string TreatmentPackageName { get; set; }
+        public string TreatmentPackageId { get; set; }
         [Required]
-        public string InsurerName { get; set; }
+        public string InsurerId { get; set; }
     }
 }
