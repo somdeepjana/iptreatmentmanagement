@@ -10,6 +10,6 @@ namespace IPTreatmentManagement.Models.Dtos.Response
     public class InitiateCliamResponseDto
     {
         [Required]
-        public int AmountToBePaid { get; set; }
+        public decimal AmountToBePaid { get; set; }
     }
 }

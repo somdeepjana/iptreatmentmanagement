@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using IPTreatmentManagement.EFCore.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace IPTreatmentManagement.Api.Controllers
 {
@@ -32,6 +33,8 @@ namespace IPTreatmentManagement.Api.Controllers
         }       
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponseModel))]
         public async Task<ActionResult<TreatmentPlanResponseDTO>> GetTreatmentPlanDetails(PatientRequestDTO patient)
         {
             var patientEntity = _mapper.Map<PatientEntity>(patient);

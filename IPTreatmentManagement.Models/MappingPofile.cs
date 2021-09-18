@@ -42,7 +42,6 @@ namespace IPTreatmentManagement.Models
                 o => o.MapFrom(id => id.PatientId))
                 .ForMember(ie => ie.InsurerEntityId,
                 o => o.MapFrom(id => id.InsurerId));
-
         }
     }
 }

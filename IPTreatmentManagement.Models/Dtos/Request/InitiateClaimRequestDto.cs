@@ -14,6 +14,6 @@ namespace IPTreatmentManagement.Models.Dtos.Request
         [Required]
         public string TreatmentPackageName { get; set; }
         [Required]
-        public string InsurerId { get; set; }
+        public int InsurerId { get; set; }
     }
 }
