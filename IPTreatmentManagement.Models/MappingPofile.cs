@@ -32,7 +32,12 @@ namespace IPTreatmentManagement.Models
 
 
             CreateMap<PatientRequestDTO, PatientEntity>();
-                
+
+            CreateMap<InsurerEntity, InsurerResponseDto>()
+                .ForMember(id => id.InsurerPackageName,
+                o => o.MapFrom(ie => ie.IPTreatmentPackageEntity.TreatmentPackageName));
+
+
         }
     }
 }
