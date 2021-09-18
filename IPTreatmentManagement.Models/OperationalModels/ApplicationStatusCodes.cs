@@ -9,6 +9,7 @@ namespace IPTreatmentManagement.Models.OperationalModels
     public enum ApplicationStatusCodes
     {
         IPTreatmentPackageEntityNotFound,
-        SpecialistEntityNotFound
+        SpecialistEntityNotFound,
+        InsurerEntityNotFound
     }
 }

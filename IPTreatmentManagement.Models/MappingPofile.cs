@@ -40,8 +40,6 @@ namespace IPTreatmentManagement.Models
             CreateMap<InitiateClaimRequestDto, InitiateClaimEntity>()
                 .ForMember(ie => ie.PatientEntityId, 
                 o => o.MapFrom(id => id.PatientId))
-                .ForMember(ie => ie.IPTreatmentPackageEntityId,
-                o => o.MapFrom(id => id.TreatmentPackageId))
                 .ForMember(ie => ie.InsurerEntityId,
                 o => o.MapFrom(id => id.InsurerId));
 

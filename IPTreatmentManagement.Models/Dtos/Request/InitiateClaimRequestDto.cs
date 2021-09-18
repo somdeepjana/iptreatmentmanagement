@@ -12,7 +12,7 @@ namespace IPTreatmentManagement.Models.Dtos.Request
         [Required]
         public int PatientId { get; set; }
         [Required]
-        public string TreatmentPackageId { get; set; }
+        public string TreatmentPackageName { get; set; }
         [Required]
         public string InsurerId { get; set; }
     }
