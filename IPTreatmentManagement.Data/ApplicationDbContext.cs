@@ -18,6 +18,8 @@ namespace IPTreatmentManagement.EFCore.Data
         public DbSet<PatientEntity> Patients { get; set; }
         public DbSet<IPTreatmentPackageEntity> IPTreatmentPackages { get; set; }
         public DbSet<SpecialistEntity> Specialists { get; set; }
+        public DbSet<InsurerEntity> Insurers { get; set; }
+        public DbSet<InitiateClaimEntity> InitiateClaims { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
