@@ -5,16 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IPTreatmentManagement.Models.Entites
+namespace IPTreatmentManagement.Models.Dtos.Response
 {
-    public class InsurerEntity
+    public class InsurerResponseDto
     {
-        [Key]
+        [Required]
         public int Id { get; set; }
         [Required]
         public string InsurerName { get; set; }
-        public int IPTreatmentPackageEntityId { get; set; }
-        public IPTreatmentPackageEntity IPTreatmentPackageEntity { get; set; }
+        [Required]
+        public string InsurerPackageName { get; set; }
         [Required]
         public int InsuranceAmountLimit { get; set; }
         [Required]
