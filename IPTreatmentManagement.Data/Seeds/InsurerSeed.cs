@@ -16,7 +16,9 @@ namespace IPTreatmentManagement.EFCore.Data.Seeds
 
             foreach (var insurer in new InsurerSeedData().GetAll)
             {
-                context.Insurers.Add(insurer);
+                if (context.Insurers.FirstOrDefault(
+                    i => i.InsurerPackageName == insurer.InsurerPackageName) == null)
+                    context.Insurers.Add(insurer);
             }
 
             return context.SaveChanges() > 0;
@@ -33,44 +35,35 @@ namespace IPTreatmentManagement.EFCore.Data.Seeds
             }
         }
 
-        public static string MockTestDetails
-        {
-            get
-            {
-                return "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                    "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-            }
-        }
-
         private IEnumerable<InsurerEntity> _insurers = new List<InsurerEntity>
         {
             new InsurerEntity
             {
                 InsurerName = "Insurer 1",
-                IPTreatmentPackageEntityId = 1,
+                InsurerPackageName = "Insurer 1 Package  1",
                 InsuranceAmountLimit = 5000,
-                DisbursementDuration = 4
+                DisbursementDurationInDays = 4
             },
             new InsurerEntity
             {
                 InsurerName = "Insurer 2",
-                IPTreatmentPackageEntityId = 2,
+                InsurerPackageName = "Insurer 2 Package  1",
                 InsuranceAmountLimit = 4000,
-                DisbursementDuration = 5
+                DisbursementDurationInDays = 5
             },
             new InsurerEntity
             {
                 InsurerName = "Insurer 3",
-                IPTreatmentPackageEntityId = 3,
+                InsurerPackageName = "Insurer 3 Package  3",
                 InsuranceAmountLimit = 6000,
-                DisbursementDuration = 6
+                DisbursementDurationInDays = 6
             },
             new InsurerEntity
             {
                 InsurerName = "Insurer 4",
-                IPTreatmentPackageEntityId = 4,
+                InsurerPackageName = "Insurer 4 Package  2",
                 InsuranceAmountLimit = 7000,
-                DisbursementDuration = 3
+                DisbursementDurationInDays = 3
             },
 
         };

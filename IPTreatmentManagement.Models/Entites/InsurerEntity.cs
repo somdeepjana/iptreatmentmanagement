@@ -13,11 +13,11 @@ namespace IPTreatmentManagement.Models.Entites
         public int Id { get; set; }
         [Required]
         public string InsurerName { get; set; }
-        public int IPTreatmentPackageEntityId { get; set; }
-        public IPTreatmentPackageEntity IPTreatmentPackageEntity { get; set; }
         [Required]
-        public int InsuranceAmountLimit { get; set; }
+        public string InsurerPackageName { get; set; }
         [Required]
-        public int DisbursementDuration { get; set; }
+        public decimal InsuranceAmountLimit { get; set; }
+        [Required]
+        public int DisbursementDurationInDays { get; set; }
     }
 }

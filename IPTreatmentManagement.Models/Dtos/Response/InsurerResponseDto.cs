@@ -9,15 +9,9 @@ namespace IPTreatmentManagement.Models.Dtos.Response
 {
     public class InsurerResponseDto
     {
-        [Required]
-        public int Id { get; set; }
-        [Required]
         public string InsurerName { get; set; }
-        [Required]
         public string InsurerPackageName { get; set; }
-        [Required]
-        public int InsuranceAmountLimit { get; set; }
-        [Required]
-        public int DisbursementDuration { get; set; }
+        public decimal InsuranceAmountLimit { get; set; }
+        public int DisbursementDurationInDays { get; set; }
     }
 }
