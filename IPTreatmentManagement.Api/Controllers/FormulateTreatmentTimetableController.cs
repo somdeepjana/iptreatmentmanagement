@@ -16,26 +16,37 @@ namespace IPTreatmentManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FormulateTreatmentTimetableController : ControllerBase
+    public class TreatmentPlansController : ControllerBase
     {
-        private readonly ILogger<FormulateTreatmentTimetableController> _logger;
+        private readonly ILogger<TreatmentPlansController> _logger;
         private readonly IMapper _mapper;
         private readonly ApplicationDbContext _context;
 
-        public FormulateTreatmentTimetableController(
-            ILogger<FormulateTreatmentTimetableController> logger,
+        public TreatmentPlansController(
+            ILogger<TreatmentPlansController> logger,
             IMapper mapper,
             ApplicationDbContext context)
         {
             _logger = logger;
             _mapper = mapper;
             _context = context;
-        }       
+        }
 
-        [HttpPost]
+        [HttpGet]
+        public async Task<ActionResult<TreatmentPlanResponseDTO[]>> GetAllTreatmentPlans()
+        {
+            var treatmentPlans = await _context.TreatmentPlans
+                .Include(t => t.IPTreatmentPackageEntity)
+                .Include(t => t.PatientEntity)
+                .Include(t => t.SpecialistEntity).ToListAsync();
+
+            return _mapper.Map<TreatmentPlanResponseDTO[]>(treatmentPlans);
+        }
+
+        [HttpPost("FormulateTreatmentTimetable")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponseModel))]
-        public async Task<ActionResult<TreatmentPlanResponseDTO>> GetTreatmentPlanDetails(PatientRequestDTO patient)
+        public async Task<ActionResult<TreatmentPlanResponseDTO>> GenerateTreatmentPlan(PatientRequestDTO patient)
         {
             var patientEntity = _mapper.Map<PatientEntity>(patient);
 
