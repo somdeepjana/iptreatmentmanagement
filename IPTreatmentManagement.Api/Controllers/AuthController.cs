@@ -83,7 +83,7 @@ namespace IPTreatmentManagement.Api.Controllers
         {
             var jwtTokenHandler = new JwtSecurityTokenHandler();
             //var key = Encoding.ASCII.GetBytes(_configuration["jwt:Key"]);
-            var key = Encoding.ASCII.GetBytes(_jwtCredential.Key);
+            var key = Encoding.UTF8.GetBytes(_jwtCredential.Key);
 
             var claims = (await _signInManager.CreateUserPrincipalAsync(user)).Claims;
 
