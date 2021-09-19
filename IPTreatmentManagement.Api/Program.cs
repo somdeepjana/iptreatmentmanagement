@@ -32,6 +32,7 @@ namespace IPTreatmentManagement.Api
 
                 dbContext.Database.EnsureCreated();
 
+                #region Business Data seeded
                 if (dbContext.SeedIPTreatmentPackages())
                     logger.LogInformation("IPTreatmentPackages Data seeded into the database");
                 if (dbContext.SeedSpecialists())
@@ -44,7 +45,9 @@ namespace IPTreatmentManagement.Api
                     logger.LogInformation("Insurer Data seeded into the database");
                 if (dbContext.SeedClaims())
                     logger.LogInformation("InsuranceClaims Data seeded into the database");
+                #endregion
 
+                #region Admin credential seeded
                 var identityDbContext = services.GetRequiredService<ApplicationIdentityDbContext>();
                 identityDbContext.Database.EnsureCreated();
 
@@ -55,8 +58,9 @@ namespace IPTreatmentManagement.Api
                     .GetSection("AdminCredentials").Get<AdminCredentialConfiguration>();
 
                 roleManager.SeedUserRoles();
-                if(userManager.SeedAdminUser(adminCredentials))
+                if (userManager.SeedAdminUser(adminCredentials))
                     logger.LogInformation("Admin User Data seeded into the database");
+                #endregion
             }
 
             host.Run();
