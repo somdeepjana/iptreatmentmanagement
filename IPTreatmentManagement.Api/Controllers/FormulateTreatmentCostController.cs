@@ -34,30 +34,63 @@ namespace IPTreatmentManagement.Api.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponseModel))]
-        public async Task<ActionResult<InitiateCliamResponseDto>> InitiateClaim(InitiateClaimRequestDto initiateClaim)
+        public async Task<ActionResult<InitiateCliamResponseDto>> InitiateClaim(InitiateClaimRequestDto initiateClaimRequestDto)
         {
-            var initiateClaimEntity = _mapper.Map<InitiateClaimEntity>(initiateClaim);
-
-            var package = await _context.IPTreatmentPackages
-                .FirstOrDefaultAsync(p => p.TreatmentPackageName == initiateClaim.TreatmentPackageName);
-            if(package==null)
+            var treatmentPlanEntity = await _context.TreatmentPlans
+                .Include(t=>t.IPTreatmentPackageEntity)
+                .Include(t=>t.PatientEntity)
+                .FirstOrDefaultAsync(t=>t.Id== initiateClaimRequestDto.TreatmentPlanEntityId);
+            if (treatmentPlanEntity == null)
             {
                 var error = new ErrorResponseModel()
                 {
                     ErrorId = Guid.NewGuid().ToString(),
-                    Message = $"No IPTreatmentPackage by name '{initiateClaim.TreatmentPackageName}' is found ",
+                    Message = $"No TreatmentPlan by id '{initiateClaimRequestDto.TreatmentPlanEntityId}' is found ",
                     Type = ErrorTypes.UserSideError.ToString(),
-                    ApplicationStatusCode = (int)ApplicationStatusCodes.IPTreatmentPackageEntityNotFound
+                    ApplicationStatusCode = (int)ApplicationStatusCodes.TreatmentPlanEntityNotFound
                 };
                 //_logger.LogTrace()
                 return NotFound(error);
             }
 
-            initiateClaimEntity.IPTreatmentPackageEntityId = package.Id;
-            await _context.AddAsync(initiateClaimEntity);
+            var insurerEntity = await _context.Insurers
+                .FirstOrDefaultAsync(i => i.InsurerPackageName == initiateClaimRequestDto.InsurerPackageName);
+            if (insurerEntity == null)
+            {
+                var error = new ErrorResponseModel()
+                {
+                    ErrorId = Guid.NewGuid().ToString(),
+                    Message = $"No Insurer by name '{initiateClaimRequestDto.InsurerPackageName}' is found ",
+                    Type = ErrorTypes.UserSideError.ToString(),
+                    ApplicationStatusCode = (int)ApplicationStatusCodes.InsurerEntityNotFound
+                };
+                //_logger.LogTrace()
+                return NotFound(error);
+            }
+
+            if (treatmentPlanEntity.IPTreatmentPackageEntity.Cost > insurerEntity.InsuranceAmountLimit)
+            {
+                var error = new ErrorResponseModel()
+                {
+                    ErrorId = Guid.NewGuid().ToString(),
+                    Message =
+                        $"Insurance package {insurerEntity.InsurerPackageName} cover upto {insurerEntity.InsuranceAmountLimit} " +
+                        $"but treatment plan cost is {treatmentPlanEntity.IPTreatmentPackageEntity.Cost}",
+                    Type = ErrorTypes.UserSideError.ToString(),
+                    ApplicationStatusCode = (int) ApplicationStatusCodes.ExceedInsuraceClaimAmount
+                };
+                return BadRequest(error);
+            }
+
+            var initiateClaimEntity = new InitiateClaimEntity()
+            {
+                TreatmentPlanEntityId = treatmentPlanEntity.Id,
+                InsurerEntityId = insurerEntity.Id
+            };
+            await _context.InitiateClaims.AddAsync(initiateClaimEntity);
             await _context.SaveChangesAsync();
 
-            return new InitiateCliamResponseDto() { AmountToBePaid= package.Cost };
+            return _mapper.Map<InitiateCliamResponseDto>(initiateClaimEntity);
         }
     }
 }
