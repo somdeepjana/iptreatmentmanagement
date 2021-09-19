@@ -10,6 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IPTreatmentManagement.Api.ConfigurationModels;
+using IPTreatmentManagement.Api.Data;
+using IPTreatmentManagement.Api.Models.Entity;
+using Microsoft.AspNetCore.Identity;
 
 namespace IPTreatmentManagement.Api
 {
@@ -40,6 +44,19 @@ namespace IPTreatmentManagement.Api
                     logger.LogInformation("Insurer Data seeded into the database");
                 if (dbContext.SeedClaims())
                     logger.LogInformation("InsuranceClaims Data seeded into the database");
+
+                var identityDbContext = services.GetRequiredService<ApplicationIdentityDbContext>();
+                identityDbContext.Database.EnsureCreated();
+
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+
+                var adminCredentials = services.GetRequiredService<IConfiguration>()
+                    .GetSection("AdminCredentials").Get<AdminCredentialConfiguration>();
+
+                roleManager.SeedUserRoles();
+                if(userManager.SeedAdminUser(adminCredentials))
+                    logger.LogInformation("Admin User Data seeded into the database");
             }
 
             host.Run();

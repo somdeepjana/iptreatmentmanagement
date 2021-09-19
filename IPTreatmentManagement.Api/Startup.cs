@@ -10,6 +10,9 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using IPTreatmentManagement.Api.Data;
+using IPTreatmentManagement.Api.Models.Entity;
+using Microsoft.AspNetCore.Identity;
 
 namespace IPTreatmentManagement.Api
 {
@@ -28,6 +31,13 @@ namespace IPTreatmentManagement.Api
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("IPTreatmentManagementDb"));
+
+            services.AddDbContext<ApplicationIdentityDbContext>(options =>
+                options.UseInMemoryDatabase("ApplicationIdentityDb"));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddAutoMapper(typeof(IPTreatmentManagement.Models.MappingPofile));
 
