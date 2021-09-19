@@ -40,28 +40,28 @@ namespace IPTreatmentManagement.EFCore.Data.Seeds
             new InsurerEntity
             {
                 InsurerName = "Insurer 1",
-                InsurerPackageName = "Insurer 1 Package  1",
+                InsurerPackageName = "I1P1",
                 InsuranceAmountLimit = 5000,
                 DisbursementDurationInDays = 4
             },
             new InsurerEntity
             {
                 InsurerName = "Insurer 2",
-                InsurerPackageName = "Insurer 2 Package  1",
+                InsurerPackageName = "I2P1",
                 InsuranceAmountLimit = 4000,
                 DisbursementDurationInDays = 5
             },
             new InsurerEntity
             {
                 InsurerName = "Insurer 3",
-                InsurerPackageName = "Insurer 3 Package  3",
+                InsurerPackageName = "I3P3",
                 InsuranceAmountLimit = 6000,
                 DisbursementDurationInDays = 6
             },
             new InsurerEntity
             {
                 InsurerName = "Insurer 4",
-                InsurerPackageName = "Insurer 4 Package  2",
+                InsurerPackageName = "I4P2",
                 InsuranceAmountLimit = 7000,
                 DisbursementDurationInDays = 3
             },
