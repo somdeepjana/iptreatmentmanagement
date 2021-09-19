@@ -9,10 +9,14 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Text.Json.Serialization;
+using IPTreatmentManagement.Api.ConfigurationModels;
 using IPTreatmentManagement.Api.Data;
 using IPTreatmentManagement.Api.Models.Entity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 
 namespace IPTreatmentManagement.Api
 {
@@ -38,6 +42,31 @@ namespace IPTreatmentManagement.Api
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
                 .AddDefaultTokenProviders();
+
+            var jwtCredentialsSection = Configuration.GetSection("JwtCredentials");
+            var jwtCredential = jwtCredentialsSection.Get<JwtCredentialConfiguration>();
+            services.Configure<JwtCredentialConfiguration>(jwtCredentialsSection);
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, c =>
+            {
+                c.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = jwtCredential.Issuer,
+                    ValidAudience = jwtCredential.Audience,
+
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtCredential.Key))
+                };
+            });
 
             services.AddAutoMapper(typeof(IPTreatmentManagement.Models.MappingPofile));
 
