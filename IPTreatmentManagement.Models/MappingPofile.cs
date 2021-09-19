@@ -35,11 +35,7 @@ namespace IPTreatmentManagement.Models
 
             CreateMap<InsurerEntity, InsurerResponseDto>();
 
-            CreateMap<InitiateClaimRequestDto, InitiateClaimEntity>()
-                .ForMember(ie => ie.PatientEntityId, 
-                o => o.MapFrom(id => id.PatientId))
-                .ForMember(ie => ie.InsurerEntityId,
-                o => o.MapFrom(id => id.InsurerId));
+            
         }
     }
 }
