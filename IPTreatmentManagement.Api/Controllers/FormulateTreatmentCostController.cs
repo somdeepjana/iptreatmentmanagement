@@ -17,13 +17,13 @@ namespace IPTreatmentManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FormulateTreatmentCostController : ControllerBase
+    public class ClaimsController : ControllerBase
     {
-        private readonly ILogger<FormulateTreatmentCostController> _logger;
+        private readonly ILogger<ClaimsController> _logger;
         private readonly IMapper _mapper;
         private readonly ApplicationDbContext _context;
 
-        public FormulateTreatmentCostController(ILogger<FormulateTreatmentCostController> logger,
+        public ClaimsController(ILogger<ClaimsController> logger,
             IMapper mapper,
             ApplicationDbContext context)
         {
@@ -31,7 +31,21 @@ namespace IPTreatmentManagement.Api.Controllers
             _mapper = mapper;
             _context = context;
         }
-        [HttpPost]
+
+        [HttpGet]
+        public async Task<ActionResult<InitiateCliamResponseDto[]>> GetAllClaims()
+        {
+            var claims = await _context.InitiateClaims
+                .Include(i => i.TreatmentPlanEntity)
+                .Include(i => i.TreatmentPlanEntity.IPTreatmentPackageEntity)
+                .Include(i => i.TreatmentPlanEntity.PatientEntity)
+                .Include(i => i.InsurerEntity)
+                .ToListAsync();
+
+            return _mapper.Map<InitiateCliamResponseDto[]>(claims);
+        }
+
+        [HttpPost("InitiateClaim")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponseModel))]
         public async Task<ActionResult<InitiateCliamResponseDto>> InitiateClaim(InitiateClaimRequestDto initiateClaimRequestDto)
