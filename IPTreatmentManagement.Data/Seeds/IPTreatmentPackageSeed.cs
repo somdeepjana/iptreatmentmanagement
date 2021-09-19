@@ -72,7 +72,7 @@ namespace IPTreatmentManagement.Api.Seeds
             },
             new IPTreatmentPackageEntity
             {
-                TreatmentPackageName= "TRN-1",
+                TreatmentPackageName= "TRN-4",
                 TestDetails= MockTestDetails,
                 AilmentCategory= AilmentDomain.Urology,
                 Cost= 5000,

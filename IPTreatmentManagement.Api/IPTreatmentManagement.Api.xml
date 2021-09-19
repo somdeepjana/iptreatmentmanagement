@@ -4,6 +4,12 @@
         <name>IPTreatmentManagement.Api</name>
     </assembly>
     <members>
+        <member name="M:IPTreatmentManagement.Api.Controllers.InsurerController.GetAllInsurerDetail">
+            <summary>
+            Get all Insurer details
+            </summary>
+            <returns>list of Insurers</returns>
+        </member>
         <member name="M:IPTreatmentManagement.Api.Controllers.IPTreatmentPackagesController.GetAllIPTreatmentPackages">
             <summary>
             Get all IPTreatmentPackage details

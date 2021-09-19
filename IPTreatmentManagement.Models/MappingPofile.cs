@@ -32,7 +32,19 @@ namespace IPTreatmentManagement.Models
 
 
             CreateMap<PatientRequestDTO, PatientEntity>();
-                
+
+            CreateMap<InsurerEntity, InsurerResponseDto>();
+
+            CreateMap<InitiateClaimEntity, InitiateCliamResponseDto>()
+                .ForMember(id => id.PatientNameId, o => o.MapFrom(ie => ie.TreatmentPlanEntity.PatientEntityId))
+                .ForMember(id => id.PatientName, o => o.MapFrom(ie => ie.TreatmentPlanEntity.PatientEntity.Name))
+                .ForMember(id => id.Ailment,
+                    o => o.MapFrom(ie => ie.TreatmentPlanEntity.IPTreatmentPackageEntity.AilmentCategory))
+                .ForMember(id => id.TreatmentPackageName,
+                    o => o.MapFrom(ie => ie.TreatmentPlanEntity.IPTreatmentPackageEntity.TreatmentPackageName))
+                .ForMember(id => id.InsurerPackageName, o => o.MapFrom(ie => ie.InsurerEntity.InsurerPackageName))
+                .ForMember(id => id.AmountToBePaid,
+                    o => o.MapFrom(ie => ie.TreatmentPlanEntity.IPTreatmentPackageEntity.Cost));
         }
     }
 }
