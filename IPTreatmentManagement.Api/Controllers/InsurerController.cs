@@ -39,24 +39,23 @@ namespace IPTreatmentManagement.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<InsurerResponseDto[]>> GetAllInsurerDetail()
         {
-            var insurers = await _context.Insurers.Include(i=>i.IPTreatmentPackageEntity).ToListAsync();
+            var insurers = await _context.Insurers.ToListAsync();
             return _mapper.Map<InsurerResponseDto[]>(insurers);
         }
 
         [HttpGet]
-        [Route("{packageName}")]
+        [Route("{InsurerPackageName}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type=typeof(ErrorResponseModel))]
-        public async Task<ActionResult<InsurerResponseDto>> GetInsurerByPackageName(string packageName)
+        public async Task<ActionResult<InsurerResponseDto>> GetInsurerByPackageName(string InsurerPackageName)
         {
-            var insurer = await _context.Insurers.Include(i=>i.IPTreatmentPackageEntity)
-                                                 .FirstOrDefaultAsync(i => i.IPTreatmentPackageEntity.TreatmentPackageName == packageName);
+            var insurer = await _context.Insurers.FirstOrDefaultAsync(i => i.InsurerPackageName == InsurerPackageName);
             if(insurer is null)
             {
                 var error = new ErrorResponseModel()
                 {
                     ErrorId = Guid.NewGuid().ToString(),
-                    Message = $"No Insurer with '{packageName}' found",
+                    Message = $"No Insurer with '{InsurerPackageName}' found",
                     Type = ErrorTypes.UserSideError.ToString(),
                     ApplicationStatusCode = (int)ApplicationStatusCodes.InsurerEntityNotFound
                 };

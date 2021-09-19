@@ -11,10 +11,10 @@ namespace IPTreatmentManagement.Models.Entites
     {
         [Key]
         public int Id { get; set; }
-        public int PatientEntityId { get; set; }
-        public PatientEntity PatientEntity { get; set; }
-        public int IPTreatmentPackageEntityId { get; set; }
-        public IPTreatmentPackageEntity IPTreatmentPackageEntity { get; set; }
+
+        public int TreatmentPlanEntityId { get; set; }
+        public TreatmentPlanEntity TreatmentPlanEntity { get; set; }
+
         public int InsurerEntityId { get; set; }
         public InsurerEntity InsurerEntity { get; set; }
     }

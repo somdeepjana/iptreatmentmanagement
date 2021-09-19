@@ -10,6 +10,8 @@ namespace IPTreatmentManagement.Models.OperationalModels
     {
         IPTreatmentPackageEntityNotFound,
         SpecialistEntityNotFound,
-        InsurerEntityNotFound
+        InsurerEntityNotFound,
+        TreatmentPlanEntityNotFound,
+        ExceedInsuraceClaimAmount
     }
 }
