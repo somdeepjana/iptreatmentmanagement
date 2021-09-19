@@ -38,6 +38,8 @@ namespace IPTreatmentManagement.Api
                     logger.LogInformation("Patient Data seeded into the database");
                 if (dbContext.SeedInsurers())
                     logger.LogInformation("Insurer Data seeded into the database");
+                if (dbContext.SeedClaims())
+                    logger.LogInformation("InsuranceClaims Data seeded into the database");
             }
 
             host.Run();
