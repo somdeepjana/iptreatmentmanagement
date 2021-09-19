@@ -12,6 +12,8 @@ namespace IPTreatmentManagement.Models.OperationalModels
         SpecialistEntityNotFound,
         InsurerEntityNotFound,
         TreatmentPlanEntityNotFound,
-        ExceedInsuraceClaimAmount
+        ExceedInsuraceClaimAmount,
+        ApplicationUserNotFound,
+        UserCredentialMismatch
     }
 }
