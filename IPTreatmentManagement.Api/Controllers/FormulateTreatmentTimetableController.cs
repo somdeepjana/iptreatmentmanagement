@@ -8,12 +8,15 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using IPTreatmentManagement.Api.Models.Entity;
 using IPTreatmentManagement.EFCore.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 
 namespace IPTreatmentManagement.Api.Controllers
 {
+    [Authorize(Roles = nameof(UserRoles.Admin))]
     [Route("api/[controller]")]
     [ApiController]
     public class TreatmentPlansController : ControllerBase

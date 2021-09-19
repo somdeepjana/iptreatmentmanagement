@@ -12,9 +12,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IPTreatmentManagement.Api.Models.Entity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IPTreatmentManagement.Api.Controllers
 {
+    [Authorize(Roles = nameof(UserRoles.Admin))]
     [Route("api/[controller]")]
     [ApiController]
     public class ClaimsController : ControllerBase
