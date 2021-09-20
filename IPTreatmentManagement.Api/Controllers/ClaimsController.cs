@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace IPTreatmentManagement.Api.Controllers
 {
-    [Authorize(Roles = nameof(UserRoles.Admin))]
+    //[Authorize(Roles = nameof(UserRoles.Admin))]
     [Route("api/[controller]")]
     [ApiController]
     public class ClaimsController : ControllerBase
