@@ -3,11 +3,14 @@ using IPTreatmentManagement.Models.Dtos.Response;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using IPTreatmentManagement.Api.Models.Entity;
 using IPTreatmentManagement.EFCore.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace IPTreatmentManagement.Api.Controllers
 {
+    [Authorize(Roles = nameof(UserRoles.Admin))]
     [Route("api/[controller]")]
     [ApiController]
     public class SpecialistsController : ControllerBase
