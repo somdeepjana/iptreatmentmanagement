@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IPTreatmentManagement.Models.ApiRepositoryInterface;
+using IPTreatmentManagement.Web.ConfigurationModels;
 using Refit;
 
 namespace IPTreatmentManagement.Web
@@ -27,8 +28,12 @@ namespace IPTreatmentManagement.Web
         {
             //services.AddAutoMapper(typeof(IPTreatmentManagement.Models.MappingPofile));
 
+            var iPTMApiConfigSection = Configuration.GetSection("IPTreatmentManagement.Api");
+            var iPTMApiConfig = iPTMApiConfigSection.Get<IPTreatmentManagementApiConfiguration>();
+            services.Configure<IPTreatmentManagementApiConfiguration>(iPTMApiConfigSection);
+
             services.AddRefitClient<IIPTreatmentPackageApiRepository>()
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration.GetSection("IPTreatmentManagement.Api:BaseUrl").Value));
+                .ConfigureHttpClient(c => c.BaseAddress = iPTMApiConfig.BaseUrlUri);
 
             services.AddControllersWithViews();
         }
