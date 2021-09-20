@@ -11,13 +11,11 @@ namespace IPTreatmentManagement.Web.Controllers
 {
     public class IPTreatmentPackagesController : Controller
     {
-        private readonly IMapper _mapper;
         private readonly IIPTreatmentPackageApiRepository _treatmentPackageApiRepository;
 
-        public IPTreatmentPackagesController(IMapper mapper,
+        public IPTreatmentPackagesController(
             IIPTreatmentPackageApiRepository treatmentPackageApiRepository)
         {
-            _mapper = mapper;
             _treatmentPackageApiRepository = treatmentPackageApiRepository;
         }
         public async Task<IActionResult> Index()
