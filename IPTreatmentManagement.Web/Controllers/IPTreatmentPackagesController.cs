@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using IPTreatmentManagement.Api.Seeds;
+using IPTreatmentManagement.Models.ApiRepositoryInterface;
 using IPTreatmentManagement.Models.Dtos.Response;
 
 namespace IPTreatmentManagement.Web.Controllers
@@ -12,19 +12,22 @@ namespace IPTreatmentManagement.Web.Controllers
     public class IPTreatmentPackagesController : Controller
     {
         private readonly IMapper _mapper;
+        private readonly IIPTreatmentPackageApiRepository _treatmentPackageApiRepository;
 
-        public IPTreatmentPackagesController(IMapper mapper)
+        public IPTreatmentPackagesController(IMapper mapper,
+            IIPTreatmentPackageApiRepository treatmentPackageApiRepository)
         {
             _mapper = mapper;
+            _treatmentPackageApiRepository = treatmentPackageApiRepository;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_mapper.Map<IPTreatmentPackageResponseDto[]>(new IPTreatmentPackageSeedData().GetAll));
+            return View(await _treatmentPackageApiRepository.GetAll());
         }
 
-        public IActionResult Details(string treatmentPackageName)
+        public async Task<IActionResult> Details(string treatmentPackageName)
         {
-            return View();
+            return View(await _treatmentPackageApiRepository.GetByPackageName(treatmentPackageName));
         }
     }
 }

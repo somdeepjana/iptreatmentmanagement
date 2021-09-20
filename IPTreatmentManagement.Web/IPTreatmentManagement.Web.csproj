@@ -10,10 +10,11 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.9" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Refit" Version="6.0.94" />
+    <PackageReference Include="Refit.HttpClientFactory" Version="6.0.94" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IPTreatmentManagement.Data\IPTreatmentManagement.EFCore.Data.csproj" />
     <ProjectReference Include="..\IPTreatmentManagement.Models\IPTreatmentManagement.Models.csproj" />
   </ItemGroup>
 
