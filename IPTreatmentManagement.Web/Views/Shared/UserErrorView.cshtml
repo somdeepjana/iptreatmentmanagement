@@ -1,0 +1,40 @@
+﻿@model IPTreatmentManagement.Models.OperationalModels.ErrorResponseModel
+
+@{
+    ViewData["Title"] = "Error";
+
+    var errorName = (IPTreatmentManagement.Models.OperationalModels.ApplicationStatusCodes) Model.ApplicationStatusCode;
+}
+
+<h1 class="text-danger">Error</h1>
+
+<div>
+    <h4 class="text-danger">@errorName.ToString()</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ErrorId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ErrorId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ApplicationStatusCode)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ApplicationStatusCode)
+        </dd>
+    </dl>
+</div>

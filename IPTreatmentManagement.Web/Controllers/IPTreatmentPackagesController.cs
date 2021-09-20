@@ -9,6 +9,7 @@ using AutoMapper;
 using IPTreatmentManagement.Models.ApiRepositoryInterface;
 using IPTreatmentManagement.Models.Dtos.Response;
 using IPTreatmentManagement.Models.OperationalModels;
+using IPTreatmentManagement.Web.ExceptionFilters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Refit;
@@ -32,21 +33,22 @@ namespace IPTreatmentManagement.Web.Controllers
             return View(treatmentPackages);
         }
 
+        [TypeFilter(typeof(IPTreatmentPackageExceptionFilter))]
         public async Task<IActionResult> Details(string treatmentPackageName)
         {
-            try
-            {
+            //try
+            //{
                 var treatmentPackage = await _treatmentPackageApiRepository.GetByPackageName(treatmentPackageName);
                 return View(treatmentPackage);
-            }
-            catch (ApiException ex)
-            {
-                var error = await ex.GetContentAsAsync<ErrorResponseModel>();
-                if (error.ApplicationStatusCode == (int)ApplicationStatusCodes.IPTreatmentPackageEntityNotFound)
-                    return NotFound(error);
-            }
+            //}
+            //catch (ApiException ex)
+            //{
+            //    var error = await ex.GetContentAsAsync<ErrorResponseModel>();
+            //    if (error.ApplicationStatusCode == (int)ApplicationStatusCodes.IPTreatmentPackageEntityNotFound)
+            //        return NotFound(error);
+            //}
 
-            return StatusCode(StatusCodes.Status500InternalServerError);
+            //return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }
