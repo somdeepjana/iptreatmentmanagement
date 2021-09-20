@@ -42,7 +42,7 @@ namespace IPTreatmentManagement.Web.Controllers
             catch (ApiException ex)
             {
                 var error = await ex.GetContentAsAsync<ErrorResponseModel>();
-                if (error.ApplicationStatusCode == (int) ApplicationStatusCodes.IPTreatmentPackageEntityNotFound)
+                if (error.ApplicationStatusCode == (int)ApplicationStatusCodes.IPTreatmentPackageEntityNotFound)
                     return NotFound(error);
             }
 
