@@ -1,0 +1,51 @@
+﻿@model IEnumerable<IPTreatmentManagement.Models.Dtos.Response.SpecialistResponseDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All Specialists</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AreaOfExpertise)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExperienceInYears)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AreaOfExpertise)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExperienceInYears)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactNumber)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

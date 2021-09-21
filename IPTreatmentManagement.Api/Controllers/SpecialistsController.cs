@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IPTreatmentManagement.Api.Controllers
 {
-    //[Authorize(Roles = nameof(UserRoles.Admin))]
+    [Authorize(Roles = nameof(UserRoles.Admin))]
     [Route("api/[controller]")]
     [ApiController]
     public class SpecialistsController : ControllerBase

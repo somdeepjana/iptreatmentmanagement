@@ -31,6 +31,7 @@ namespace IPTreatmentManagement.Web
         {
             //services.AddAutoMapper(typeof(IPTreatmentManagement.Models.MappingPofile));
 
+            #region Authentication Configuration
             services.Configure<JwtCredentialConfiguration>(Configuration.GetSection("JwtCredentials"));
 
             services.AddHttpContextAccessor();
@@ -46,6 +47,7 @@ namespace IPTreatmentManagement.Web
                     options.LoginPath = "/User/Login";
                     options.SlidingExpiration = true;
                 });
+            #endregion
 
             services.AddTransient<AuthorizationMessageHandler>();
 
@@ -53,11 +55,17 @@ namespace IPTreatmentManagement.Web
             var iPTMApiConfig = iPTMApiConfigSection.Get<IPTreatmentManagementApiConfiguration>();
             services.Configure<IPTreatmentManagementApiConfiguration>(iPTMApiConfigSection);
 
+            #region Api Repositories
             services.AddRefitClient<IIPTreatmentPackageApiRepository>()
                 .ConfigureHttpClient(c => c.BaseAddress = iPTMApiConfig.BaseUrlUri)
                 .AddHttpMessageHandler<AuthorizationMessageHandler>();
+            services.AddRefitClient<ISpecialistApiRepository>()
+                .ConfigureHttpClient(c => c.BaseAddress = iPTMApiConfig.BaseUrlUri)
+                .AddHttpMessageHandler<AuthorizationMessageHandler>();
+
             services.AddRefitClient<IUserApiRepository>()
                 .ConfigureHttpClient(c => c.BaseAddress = iPTMApiConfig.BaseUrlUri);
+            #endregion
 
             services.AddControllersWithViews();
         }
