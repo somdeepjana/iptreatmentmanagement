@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using IPTreatmentManagement.Models.OperationalModels;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -28,8 +29,9 @@ namespace IPTreatmentManagement.Web.ExceptionFilters
             {
                 if (error.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    context.Result = new RedirectToRouteResult(new RouteValueDictionary(
-                        new {controller = "User", action = "login"}));
+                    //context.Result = new RedirectToRouteResult(new RouteValueDictionary(
+                    //    new {controller = "User", action = "login"}));
+                    context.Result = new ChallengeResult(CookieAuthenticationDefaults.AuthenticationScheme);
                     return;
                 }
 

@@ -23,7 +23,7 @@ namespace IPTreatmentManagement.Web.Handlers
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             //var jwtToken = _contextAccessor.HttpContext.Session.GetString("jwtToken");
-            var jwtToken = _contextAccessor.HttpContext.User.FindFirst("jwtToken").Value;
+            var jwtToken = _contextAccessor.HttpContext?.User.FindFirst("jwtToken")?.Value;
 
             request.Headers.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme,
                 jwtToken);
