@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using IPTreatmentManagement.Models.ApiRepositoryInterface;
 using IPTreatmentManagement.Web.ConfigurationModels;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Refit;
 
 namespace IPTreatmentManagement.Web
@@ -27,6 +28,16 @@ namespace IPTreatmentManagement.Web
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddAutoMapper(typeof(IPTreatmentManagement.Models.MappingPofile));
+
+            services.Configure<JwtCredentialConfiguration>(Configuration.GetSection("JwtCredentials"));
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                    options.LoginPath = "/User/Login";
+                    options.SlidingExpiration = true;
+                });
 
             var iPTMApiConfigSection = Configuration.GetSection("IPTreatmentManagement.Api");
             var iPTMApiConfig = iPTMApiConfigSection.Get<IPTreatmentManagementApiConfiguration>();
