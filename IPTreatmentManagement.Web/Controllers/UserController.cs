@@ -12,6 +12,7 @@ using IPTreatmentManagement.Web.ConfigurationModels;
 using IPTreatmentManagement.Web.ExceptionFilters;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -30,14 +31,17 @@ namespace IPTreatmentManagement.Web.Controllers
             _jwtCredential = jwtCredentialOptions.Value;
         }
 
-        public IActionResult Login()
+        [AllowAnonymous]
+        public IActionResult Login(string returnUrl = "/Home/Index")
         {
+            ViewData["returnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [TypeFilter(typeof(ApiCallExceptionFilter))]
-        public async Task<IActionResult> Login(UserLoginRequestDto userLoginRequest)
+        public async Task<IActionResult> Login(UserLoginRequestDto userLoginRequest, string returnUrl="/Home/Index")
         {
             var jwtTokenResponse = await _userApiRepository.Authenticate(userLoginRequest);
             if (string.IsNullOrEmpty(jwtTokenResponse.JwtToken))
@@ -48,11 +52,12 @@ namespace IPTreatmentManagement.Web.Controllers
             identity.AddClaim(new Claim("jwtToken", jwtTokenResponse.JwtToken));
             var principle = new ClaimsPrincipal(identity);
 
+            await HttpContext.SignOutAsync();
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principle, new AuthenticationProperties());
             //HttpContext.Session.SetString("jwtToken", jwtTokenResponse.JwtToken);
             //HttpContext.Items["jwtToken"] = jwtTokenResponse.JwtToken;
 
-            return RedirectToAction("index", "Home");
+            return LocalRedirect(returnUrl);
         }
 
         [HttpPost]

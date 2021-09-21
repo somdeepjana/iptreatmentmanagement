@@ -129,8 +129,8 @@ namespace IPTreatmentManagement.Api
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
-                    //.RequireAuthorization();
+                endpoints.MapControllers()
+                    .RequireAuthorization();
             });
         }
     }
