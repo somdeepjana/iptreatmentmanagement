@@ -68,6 +68,9 @@ namespace IPTreatmentManagement.Web
             services.AddRefitClient<ITreatmentPlanApiRepository>()
                 .ConfigureHttpClient(c => c.BaseAddress = iPTMApiConfig.BaseUrlUri)
                 .AddHttpMessageHandler<AuthorizationMessageHandler>();
+            services.AddRefitClient<IClaimsApiRepository>()
+                .ConfigureHttpClient(c => c.BaseAddress = iPTMApiConfig.BaseUrlUri)
+                .AddHttpMessageHandler<AuthorizationMessageHandler>();
 
             services.AddRefitClient<IUserApiRepository>()
                 .ConfigureHttpClient(c => c.BaseAddress = iPTMApiConfig.BaseUrlUri);

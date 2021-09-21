@@ -10,8 +10,11 @@ namespace IPTreatmentManagement.Models.Dtos.Request
     public class InitiateClaimRequestDto
     {
         [Required]
+        [Display(Name = "TreatmentPlan Id")]
         public int TreatmentPlanEntityId { get; set; }
+
         [Required]
+        [Display(Name = "Insurer Package Name")]
         public string InsurerPackageName { get; set; }
     }
 }
