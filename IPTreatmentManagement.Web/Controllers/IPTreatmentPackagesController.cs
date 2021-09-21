@@ -16,6 +16,7 @@ using Refit;
 
 namespace IPTreatmentManagement.Web.Controllers
 {
+    [TypeFilter(typeof(ApiCallExceptionFilter))]
     public class IPTreatmentPackagesController : Controller
     {
         private readonly ILogger<IPTreatmentPackagesController> _logger;
@@ -33,7 +34,6 @@ namespace IPTreatmentManagement.Web.Controllers
             return View(treatmentPackages);
         }
 
-        [TypeFilter(typeof(IPTreatmentPackageExceptionFilter))]
         public async Task<IActionResult> Details(string treatmentPackageName)
         {
             //try
@@ -41,11 +41,9 @@ namespace IPTreatmentManagement.Web.Controllers
                 var treatmentPackage = await _treatmentPackageApiRepository.GetByPackageName(treatmentPackageName);
                 return View(treatmentPackage);
             //}
-            //catch (ApiException ex)
+            //catch(ApiException ex)
             //{
-            //    var error = await ex.GetContentAsAsync<ErrorResponseModel>();
-            //    if (error.ApplicationStatusCode == (int)ApplicationStatusCodes.IPTreatmentPackageEntityNotFound)
-            //        return NotFound(error);
+            //    throw;
             //}
 
             //return StatusCode(StatusCodes.Status500InternalServerError);

@@ -8,15 +8,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Routing;
 using Refit;
 
 namespace IPTreatmentManagement.Web.ExceptionFilters
 {
-    public class IPTreatmentPackageExceptionFilter : IExceptionFilter
+    public class ApiCallExceptionFilter : IExceptionFilter
     {
         private readonly IModelMetadataProvider _modelMetadataProvider;
 
-        public IPTreatmentPackageExceptionFilter(IModelMetadataProvider modelMetadataProvider)
+        public ApiCallExceptionFilter(IModelMetadataProvider modelMetadataProvider)
         {
             _modelMetadataProvider = modelMetadataProvider;
         }
@@ -25,18 +26,27 @@ namespace IPTreatmentManagement.Web.ExceptionFilters
         {
             if (context.Exception is ApiException error)
             {
-                if(error.StatusCode== HttpStatusCode.Unauthorized)
-                    return;
-
-                //var error= context.Exception as ApiException;
-                var errorContent = error.GetContentAsAsync<ErrorResponseModel>().Result;
-                if (errorContent.ApplicationStatusCode == (int)ApplicationStatusCodes.IPTreatmentPackageEntityNotFound)
+                if (error.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    var responseView = new ViewResult();
-                    responseView.ViewName = "UserErrorView";
-                    responseView.ViewData = new ViewDataDictionary(_modelMetadataProvider, context.ModelState);
-                    responseView.ViewData.Model = errorContent;
+                    context.Result = new RedirectToRouteResult(new RouteValueDictionary(
+                        new {controller = "User", action = "login"}));
+                    return;
+                }
+
+                var errorContent = error.GetContentAsAsync<ErrorResponseModel>().Result;
+
+                if (errorContent != null)
+                {
+                    var responseView = new ViewResult
+                    {
+                        ViewName = "UserErrorView",
+                        ViewData = new ViewDataDictionary(_modelMetadataProvider, context.ModelState)
+                        {
+                            Model = errorContent
+                        }
+                    };
                     context.Result = responseView;
+                    context.ExceptionHandled = true;
                 }
             }
         }

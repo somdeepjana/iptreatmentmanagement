@@ -34,6 +34,8 @@ namespace IPTreatmentManagement.Web
 
             services.AddRefitClient<IIPTreatmentPackageApiRepository>()
                 .ConfigureHttpClient(c => c.BaseAddress = iPTMApiConfig.BaseUrlUri);
+            services.AddRefitClient<IUserApiRepository>()
+                .ConfigureHttpClient(c => c.BaseAddress = iPTMApiConfig.BaseUrlUri);
 
             services.AddControllersWithViews();
         }
@@ -56,6 +58,7 @@ namespace IPTreatmentManagement.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
