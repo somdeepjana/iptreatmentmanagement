@@ -45,10 +45,11 @@ namespace IPTreatmentManagement.Web.Controllers
 
             var decoupledToken = validateToken(jwtTokenResponse.JwtToken);
             var identity = new ClaimsIdentity(decoupledToken.Claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            identity.AddClaim(new Claim("jwtToken", jwtTokenResponse.JwtToken));
             var principle = new ClaimsPrincipal(identity);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principle, new AuthenticationProperties());
-            HttpContext.Session.SetString("jwtToken", jwtTokenResponse.JwtToken);
+            //HttpContext.Session.SetString("jwtToken", jwtTokenResponse.JwtToken);
             //HttpContext.Items["jwtToken"] = jwtTokenResponse.JwtToken;
 
             return RedirectToAction("index", "Home");
@@ -57,7 +58,8 @@ namespace IPTreatmentManagement.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            HttpContext.Session.Clear();
+            //HttpContext.Session.Clear();
+            //var test = HttpContext.User.FindFirst("jwtToken");
             //var test = HttpContext.Items["jwtToken"];
             //HttpContext.Items["jwtToken"] = string.Empty;
             await HttpContext.SignOutAsync();

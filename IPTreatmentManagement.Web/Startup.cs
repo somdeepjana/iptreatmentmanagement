@@ -35,11 +35,11 @@ namespace IPTreatmentManagement.Web
             services.Configure<JwtCredentialConfiguration>(Configuration.GetSection("JwtCredentials"));
 
             services.AddHttpContextAccessor();
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromMinutes(30);
-                options.Cookie.IsEssential = true;
-            });
+            //services.AddSession(options =>
+            //{
+            //    options.IdleTimeout = TimeSpan.FromMinutes(30);
+            //    options.Cookie.IsEssential = true;
+            //});
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
@@ -99,7 +99,7 @@ namespace IPTreatmentManagement.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseSession();
+            //app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
