@@ -48,7 +48,8 @@ namespace IPTreatmentManagement.Web.Controllers
             var principle = new ClaimsPrincipal(identity);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principle, new AuthenticationProperties());
-            HttpContext.Session.SetString("jwtToken", jwtTokenResponse.JwtToken);
+            //HttpContext.Session.SetString("jwtToken", jwtTokenResponse.JwtToken);
+            HttpContext.Items["jwtToken"] = jwtTokenResponse.JwtToken;
 
             return RedirectToAction("index", "Home");
         }
@@ -56,7 +57,8 @@ namespace IPTreatmentManagement.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            HttpContext.Session.SetString("jwtToken", "");
+            //HttpContext.Session.SetString("jwtToken", "");
+            HttpContext.Items["jwtToken"] = string.Empty;
             await HttpContext.SignOutAsync();
 
             return RedirectToAction("index", "Home");
