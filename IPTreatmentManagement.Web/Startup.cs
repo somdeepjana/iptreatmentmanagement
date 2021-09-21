@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using IPTreatmentManagement.Models.ApiRepositoryInterface;
 using IPTreatmentManagement.Web.ConfigurationModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Refit;
 
 namespace IPTreatmentManagement.Web
@@ -31,6 +32,12 @@ namespace IPTreatmentManagement.Web
 
             services.Configure<JwtCredentialConfiguration>(Configuration.GetSection("JwtCredentials"));
 
+            services.AddHttpContextAccessor();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.IsEssential = true;
+            });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
@@ -71,6 +78,7 @@ namespace IPTreatmentManagement.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

@@ -3,12 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using IPTreatmentManagement.Models.ApiRepositoryInterface;
 using IPTreatmentManagement.Models.Dtos.Request;
 using IPTreatmentManagement.Web.ConfigurationModels;
 using IPTreatmentManagement.Web.ExceptionFilters;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -40,11 +44,25 @@ namespace IPTreatmentManagement.Web.Controllers
                 throw new Exception("token not found int the received response");
 
             var decoupledToken = validateToken(jwtTokenResponse.JwtToken);
+            var identity = new ClaimsIdentity(decoupledToken.Claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principle = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principle, new AuthenticationProperties());
+            HttpContext.Session.SetString("jwtToken", jwtTokenResponse.JwtToken);
 
             return RedirectToAction("index", "Home");
         }
 
-        private SecurityToken validateToken(string token)
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            HttpContext.Session.SetString("jwtToken", "");
+            await HttpContext.SignOutAsync();
+
+            return RedirectToAction("index", "Home");
+        }
+
+        private JwtSecurityToken validateToken(string token)
         {
             var tokenValidationParameters = new TokenValidationParameters()
             {
@@ -63,7 +81,7 @@ namespace IPTreatmentManagement.Web.Controllers
 
             tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken decoupledToken);
 
-            return decoupledToken;
+            return tokenHandler.ReadJwtToken(token);
         }
     }
 }
