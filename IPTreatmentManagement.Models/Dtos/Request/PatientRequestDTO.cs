@@ -17,8 +17,11 @@ namespace IPTreatmentManagement.Models.Dtos.Request
         //[Required]
         //public AilmentDomain Ailment { get; set; }
         [Required]
+        [Display(Name = "Treatment Package Name")]
         public string TreatmentPackageName { get; set; }
+
         [Required]
+        [Display(Name = "Treatment Commencement Date")]
         public DateTime TreatmentCommencementDate { get; set; }
     }
 }
