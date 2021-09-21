@@ -57,7 +57,7 @@ namespace IPTreatmentManagement.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            HttpContext.Session.SetString("jwtToken", "");
+            HttpContext.Session.Clear();
             //var test = HttpContext.Items["jwtToken"];
             //HttpContext.Items["jwtToken"] = string.Empty;
             await HttpContext.SignOutAsync();
