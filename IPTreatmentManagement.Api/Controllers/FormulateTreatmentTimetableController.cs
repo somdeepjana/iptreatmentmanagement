@@ -35,6 +35,10 @@ namespace IPTreatmentManagement.Api.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Get all Treatment Plan details
+        /// </summary>
+        /// <returns>list of TreatmentPlan</returns>
         [HttpGet]
         public async Task<ActionResult<TreatmentPlanResponseDTO[]>> GetAllTreatmentPlans()
         {
@@ -46,6 +50,11 @@ namespace IPTreatmentManagement.Api.Controllers
             return _mapper.Map<TreatmentPlanResponseDTO[]>(treatmentPlans);
         }
 
+        /// <summary>
+        /// Generating a Treatment Plan by Patient Details and Treatment Package Name
+        /// </summary>
+        /// <response code="200">Generate Treatment Plan successfully</response>
+        /// <response code="404">No Treatment Plan generated</response>
         [HttpPost("FormulateTreatmentTimetable")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponseModel))]

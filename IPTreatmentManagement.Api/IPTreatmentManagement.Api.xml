@@ -4,11 +4,52 @@
         <name>IPTreatmentManagement.Api</name>
     </assembly>
     <members>
+        <member name="M:IPTreatmentManagement.Api.Controllers.AuthController.Authenticate(IPTreatmentManagement.Models.Dtos.Request.UserLoginRequestDto)">
+            <summary>
+            Authenticating admin user by providing UserName and Password
+            </summary>
+            <response code="200">User authenticated successfully</response>
+        </member>
+        <member name="M:IPTreatmentManagement.Api.Controllers.ClaimsController.GetAllClaims">
+            <summary>
+            Get all Claims details
+            </summary>
+            <returns>list of Claims</returns>
+        </member>
+        <member name="M:IPTreatmentManagement.Api.Controllers.ClaimsController.InitiateClaim(IPTreatmentManagement.Models.Dtos.Request.InitiateClaimRequestDto)">
+            <summary>
+            Initiate a claim by treatmentPlanEntityId and insurerPackageName
+            </summary>
+            /// <response code="200">Initiate a claim successfully</response>
+            <response code="404">No claim initiated</response>
+        </member>
+        <member name="M:IPTreatmentManagement.Api.Controllers.TreatmentPlansController.GetAllTreatmentPlans">
+            <summary>
+            Get all Treatment Plan details
+            </summary>
+            <returns>list of TreatmentPlan</returns>
+        </member>
+        <member name="M:IPTreatmentManagement.Api.Controllers.TreatmentPlansController.GenerateTreatmentPlan(IPTreatmentManagement.Models.Dtos.Request.PatientRequestDTO)">
+            <summary>
+            Generating a Treatment Plan by Patient Details and Treatment Package Name
+            </summary>
+            <response code="200">Generate Treatment Plan successfully</response>
+            <response code="404">No Treatment Plan generated</response>
+        </member>
         <member name="M:IPTreatmentManagement.Api.Controllers.InsurerController.GetAllInsurerDetail">
             <summary>
             Get all Insurer details
             </summary>
             <returns>list of Insurers</returns>
+        </member>
+        <member name="M:IPTreatmentManagement.Api.Controllers.InsurerController.GetInsurerByPackageName(System.String)">
+            <summary>
+            Get a specific Insurer Details by given InsurerPackageName
+            </summary>
+            <param name="InsurerPackageName">Package name to search with</param>
+            <returns>Insurer details  if found</returns>
+            <response code="200">Insurer found with provided InsurerPackageName</response>
+            <response code="404">No Insurer found with provided InsurerPackageName</response>
         </member>
         <member name="M:IPTreatmentManagement.Api.Controllers.IPTreatmentPackagesController.GetAllIPTreatmentPackages">
             <summary>

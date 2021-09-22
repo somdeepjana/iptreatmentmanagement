@@ -46,6 +46,13 @@ namespace IPTreatmentManagement.Api.Controllers
             return _mapper.Map<InsurerResponseDto[]>(insurers);
         }
 
+        /// <summary>
+        /// Get a specific Insurer Details by given InsurerPackageName
+        /// </summary>
+        /// <param name="InsurerPackageName">Package name to search with</param>
+        /// <returns>Insurer details  if found</returns>
+        /// <response code="200">Insurer found with provided InsurerPackageName</response>
+        /// <response code="404">No Insurer found with provided InsurerPackageName</response>
         [HttpGet]
         [Route("{InsurerPackageName}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
