@@ -1,0 +1,54 @@
+﻿@model IEnumerable<IPTreatmentManagement.Models.Dtos.Response.IPTreatmentPackageResponseDto>
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TreatmentPackageName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TestDetails)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AilmentCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TreatmentDurationInDays)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TreatmentPackageName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestDetails)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AilmentCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TreatmentDurationInDays)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { treatmentPackageName = item.TreatmentPackageName })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

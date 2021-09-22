@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPTreatmentManagement.Api", "IPTreatmentManagement.Api\IPTreatmentManagement.Api.csproj", "{0781B333-D274-4E86-AB33-53D3EC7B8C5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPTreatmentManagement.Models", "IPTreatmentManagement.Models\IPTreatmentManagement.Models.csproj", "{71CB83AE-F9A5-40AE-BF6F-E6F95388C557}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPTreatmentManagement.Models", "IPTreatmentManagement.Models\IPTreatmentManagement.Models.csproj", "{71CB83AE-F9A5-40AE-BF6F-E6F95388C557}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPTreatmentManagement.EFCore.Data", "IPTreatmentManagement.Data\IPTreatmentManagement.EFCore.Data.csproj", "{F0C15F17-B579-4437-943C-6C30DD711A61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPTreatmentManagement.EFCore.Data", "IPTreatmentManagement.Data\IPTreatmentManagement.EFCore.Data.csproj", "{F0C15F17-B579-4437-943C-6C30DD711A61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPTreatmentManagement.Web", "IPTreatmentManagement.Web\IPTreatmentManagement.Web.csproj", "{D57AE15A-A4D1-4311-AB8F-7491582680EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{F0C15F17-B579-4437-943C-6C30DD711A61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0C15F17-B579-4437-943C-6C30DD711A61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0C15F17-B579-4437-943C-6C30DD711A61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D57AE15A-A4D1-4311-AB8F-7491582680EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D57AE15A-A4D1-4311-AB8F-7491582680EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D57AE15A-A4D1-4311-AB8F-7491582680EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D57AE15A-A4D1-4311-AB8F-7491582680EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

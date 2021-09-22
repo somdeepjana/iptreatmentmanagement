@@ -1,0 +1,49 @@
+﻿@model IEnumerable<IPTreatmentManagement.Models.Dtos.Response.InsurerResponseDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All Insurers</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InsurerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InsurerPackageName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InsuranceAmountLimit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisbursementDurationInDays)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InsurerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InsurerPackageName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InsuranceAmountLimit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DisbursementDurationInDays)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { insurerPackageName= item.InsurerPackageName })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
