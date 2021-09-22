@@ -41,7 +41,13 @@
                     @Html.DisplayFor(modelItem => item.DisbursementDurationInDays)
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { insurerPackageName= item.InsurerPackageName })
+                    @*@Html.ActionLink("Details", "Details", new { insurerPackageName= item.InsurerPackageName })*@
+                    <a class="btn btn-info"
+                       asp-controller="Insurer"
+                       asp-action="Details"
+                       asp-route-insurerPackageName="@item.InsurerPackageName">
+                        <i class="fas fa-lg fa-info-circle"></i>
+                    </a>
                 </td>
             </tr>
         }
