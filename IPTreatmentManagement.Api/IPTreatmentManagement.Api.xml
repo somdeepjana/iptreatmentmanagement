@@ -10,6 +10,13 @@
             </summary>
             <returns>list of Claims</returns>
         </member>
+        <member name="M:IPTreatmentManagement.Api.Controllers.ClaimsController.InitiateClaim(IPTreatmentManagement.Models.Dtos.Request.InitiateClaimRequestDto)">
+            <summary>
+            Initiate a claim by treatmentPlanEntityId and insurerPackageName
+            </summary>
+            /// <response code="200">Initiate a claim successfully</response>
+            <response code="404">No claim initiated</response>
+        </member>
         <member name="M:IPTreatmentManagement.Api.Controllers.InsurerController.GetAllInsurerDetail">
             <summary>
             Get all Insurer details
