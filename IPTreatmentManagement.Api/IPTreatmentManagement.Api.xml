@@ -23,6 +23,13 @@
             </summary>
             <returns>list of TreatmentPlan</returns>
         </member>
+        <member name="M:IPTreatmentManagement.Api.Controllers.TreatmentPlansController.GenerateTreatmentPlan(IPTreatmentManagement.Models.Dtos.Request.PatientRequestDTO)">
+            <summary>
+            Generating a Treatment Plan by Patient Details and Treatment Package Name
+            </summary>
+            <response code="200">Generate Treatment Plan successfully</response>
+            <response code="404">No Treatment Plan generated</response>
+        </member>
         <member name="M:IPTreatmentManagement.Api.Controllers.InsurerController.GetAllInsurerDetail">
             <summary>
             Get all Insurer details
