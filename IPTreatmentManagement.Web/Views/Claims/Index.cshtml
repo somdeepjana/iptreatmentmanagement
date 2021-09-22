@@ -6,11 +6,11 @@
 
 <h1>All  Claims</h1>
 
-<p>
-    <a asp-action="InitiateClaim">Initiate Claim</a>
+<p>    
+    <a class="btn btn-outline-dark" asp-action="InitiateClaim"><i class="far fa-lg fa-cuttlefish"></i> Initiate Claim</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-bordered table-hover c-datatable">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)

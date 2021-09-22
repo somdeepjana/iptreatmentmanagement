@@ -7,10 +7,10 @@
 <h1>All TreatmentPlans</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-outline-dark" asp-action="Create"><i class="fas fa-lg fa-plus"></i> Add Plan</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-bordered table-hover c-datatable">
+    <thead class="thead-dark"> 
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
