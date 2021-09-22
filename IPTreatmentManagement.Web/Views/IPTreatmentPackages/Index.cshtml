@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<IPTreatmentManagement.Models.Dtos.Response.IPTreatmentPackageResponseDto>
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "IP Treatment Packages";
 }
 
-<h1>Login</h1>
+<h1>Treatment Packages</h1>
 
-<table class="table">
-    <thead>
+<table class="table table-bordered table-hover table-responsive">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.TreatmentPackageName)
