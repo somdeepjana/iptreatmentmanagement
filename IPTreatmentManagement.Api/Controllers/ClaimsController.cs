@@ -56,7 +56,7 @@ namespace IPTreatmentManagement.Api.Controllers
         /// <summary>
         /// Initiate a claim by treatmentPlanEntityId and insurerPackageName
         /// </summary>
-        /// /// <response code="200">Initiate a claim successfully</response>
+        /// <response code="200">Initiate a claim successfully</response>
         /// <response code="404">No claim initiated</response>
         [HttpPost("InitiateClaim")]
         [ProducesResponseType(StatusCodes.Status200OK)]
