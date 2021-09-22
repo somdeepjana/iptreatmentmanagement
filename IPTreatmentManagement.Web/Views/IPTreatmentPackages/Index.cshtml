@@ -28,27 +28,34 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TreatmentPackageName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TestDetails)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AilmentCategory)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TreatmentDurationInDays)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { treatmentPackageName = item.TreatmentPackageName })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentPackageName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TestDetails)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AilmentCategory)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentDurationInDays)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Details", "Details", new { treatmentPackageName = item.TreatmentPackageName })*@
+                    <a class="btn btn-info"
+                       asp-controller="IPTreatmentPackages"
+                       asp-action="Details"
+                       asp-route-treatmentPackageName="@item.TreatmentPackageName">
+                        <i class="fas fa-lg fa-info-circle"></i>
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
