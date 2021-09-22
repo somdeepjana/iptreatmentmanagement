@@ -6,11 +6,11 @@
 
 <h1>All  Claims</h1>
 
-<h3 class="mb-5">    
-    <a asp-action="InitiateClaim" class="m-4"><i class="far fa-2x fa-plus-square float-right"></i></a>
-</h3>
-<table class="table table-bordered table-hover table-striped text-center">
-    <thead class="thead-dark">
+<p>
+    <a asp-action="InitiateClaim">Initiate Claim</a>
+</p>
+<table class="table">
+    <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -33,7 +33,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.AmountToBePaid)
             </th>
-            @*<th></th>*@
+            <th></th>
         </tr>
     </thead>
     <tbody>

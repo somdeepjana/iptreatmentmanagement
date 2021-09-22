@@ -6,8 +6,8 @@
 
 <h1>All Insurers</h1>
 
-<table class="table table-bordered table-hover table-striped text-center">
-    <thead class="thead-dark">
+<table class="table">
+    <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.InsurerName)
@@ -41,13 +41,7 @@
                     @Html.DisplayFor(modelItem => item.DisbursementDurationInDays)
                 </td>
                 <td>
-                    @*@Html.ActionLink("Details", "Details", new { insurerPackageName= item.InsurerPackageName })*@
-                    <a class="btn btn-outline-secondary bg-info"
-                       asp-controller="Insurer"
-                       asp-action="Details"
-                       asp-route-insurerPackageName="@item.InsurerPackageName">
-                        <i class="fas fa-lg fa-info-circle text-white"></i>
-                    </a>
+                    @Html.ActionLink("Details", "Details", new { insurerPackageName= item.InsurerPackageName })
                 </td>
             </tr>
         }
