@@ -9,8 +9,8 @@
 <p>
     <a asp-action="Create"><i class="fas fa-2x fa-edit"></i></a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark"> 
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -33,7 +33,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.TreatmentEndDate)
             </th>
-            <th></th>
+            
         </tr>
     </thead>
     <tbody>

@@ -9,8 +9,8 @@
 <p>    
     <a asp-action="InitiateClaim"><i class="far fa-2x fa-plus-square"></i></a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -33,7 +33,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.AmountToBePaid)
             </th>
-            <th></th>
+            @*<th></th>*@
         </tr>
     </thead>
     <tbody>
