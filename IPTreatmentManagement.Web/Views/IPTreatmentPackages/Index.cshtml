@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<IPTreatmentManagement.Models.Dtos.Response.IPTreatmentPackageResponseDto>
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "IP Treatment Packages";
 }
 
-<h1>Login</h1>
+<h1>All Treatment Packages</h1>
 
-<table class="table">
-    <thead>
+<table class="table table-bordered table-striped table-hover text-center">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.TreatmentPackageName)
@@ -28,27 +28,34 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TreatmentPackageName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TestDetails)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AilmentCategory)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TreatmentDurationInDays)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { treatmentPackageName = item.TreatmentPackageName })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentPackageName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TestDetails)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AilmentCategory)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentDurationInDays)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Details", "Details", new { treatmentPackageName = item.TreatmentPackageName })*@
+                    <a class="btn btn-outline-secondary bg-info"
+                       asp-controller="IPTreatmentPackages"
+                       asp-action="Details"
+                       asp-route-treatmentPackageName="@item.TreatmentPackageName">
+                        <i class="fas fa-lg fa-info-circle text-white"></i>
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

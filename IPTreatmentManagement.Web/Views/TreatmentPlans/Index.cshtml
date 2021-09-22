@@ -6,11 +6,11 @@
 
 <h1>All TreatmentPlans</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<h3 class="mb-5">
+    <a asp-action="Create" class="m-4"><i class="fas fa-2x fa-edit float-right"></i></a>
+</h3>
+<table class="table table-bordered table-hover table-striped text-center">
+    <thead class="thead-dark"> 
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -33,7 +33,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.TreatmentEndDate)
             </th>
-            <th></th>
+            
         </tr>
     </thead>
     <tbody>
