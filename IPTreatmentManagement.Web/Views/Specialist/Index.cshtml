@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<IPTreatmentManagement.Models.Dtos.Response.SpecialistResponseDto>
 
 @{
-    ViewData["Title"] = "Specialists";
+    ViewData["Title"] = "Index";
 }
 
 <h1>All Specialists</h1>
 
-<table class="table table-bordered table-hover table-striped text-center">
-    <thead class="thead-dark">
+<table class="table">
+    <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -24,7 +24,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.ContactNumber)
             </th>
-
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -50,4 +50,3 @@
         }
     </tbody>
 </table>
-
