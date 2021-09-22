@@ -35,6 +35,10 @@ namespace IPTreatmentManagement.Api.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Get all Claims details
+        /// </summary>
+        /// <returns>list of Claims</returns>
         [HttpGet]
         public async Task<ActionResult<InitiateCliamResponseDto[]>> GetAllClaims()
         {
