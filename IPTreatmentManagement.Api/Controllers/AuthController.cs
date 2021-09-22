@@ -38,6 +38,10 @@ namespace IPTreatmentManagement.Api.Controllers
             _jwtCredential = jwtCredentialOptions.Value;
         }
 
+        /// <summary>
+        /// Authenticating admin user by providing UserName and Password
+        /// </summary>
+        /// <response code="200">User authenticated successfully</response>
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult<JwtTokenResponseDto>> Authenticate(UserLoginRequestDto userLoginRequestDto)
