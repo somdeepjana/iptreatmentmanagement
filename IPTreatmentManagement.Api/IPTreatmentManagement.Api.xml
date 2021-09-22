@@ -17,6 +17,12 @@
             /// <response code="200">Initiate a claim successfully</response>
             <response code="404">No claim initiated</response>
         </member>
+        <member name="M:IPTreatmentManagement.Api.Controllers.TreatmentPlansController.GetAllTreatmentPlans">
+            <summary>
+            Get all Treatment Plan details
+            </summary>
+            <returns>list of TreatmentPlan</returns>
+        </member>
         <member name="M:IPTreatmentManagement.Api.Controllers.InsurerController.GetAllInsurerDetail">
             <summary>
             Get all Insurer details

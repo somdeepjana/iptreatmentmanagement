@@ -35,6 +35,10 @@ namespace IPTreatmentManagement.Api.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Get all Treatment Plan details
+        /// </summary>
+        /// <returns>list of TreatmentPlan</returns>
         [HttpGet]
         public async Task<ActionResult<TreatmentPlanResponseDTO[]>> GetAllTreatmentPlans()
         {
