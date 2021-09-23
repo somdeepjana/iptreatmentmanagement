@@ -118,10 +118,10 @@ namespace IPTreatmentManagement.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHttpsRedirection();
+
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IPTreatmentManagement.Api v1"));
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
