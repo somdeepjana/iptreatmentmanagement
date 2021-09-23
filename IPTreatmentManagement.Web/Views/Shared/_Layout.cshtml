@@ -6,8 +6,6 @@
     <title>@ViewData["Title"] - IPTreatmentManagement.Web</title>
 
     <partial name="_ViewCssPartial" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.2/datatables.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
@@ -36,7 +34,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Claims" asp-action="Index">Claims</a>
                         </li>
                     </ul>
-                    <partial  name="_LoginPartial"/>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
@@ -54,9 +52,6 @@
     </footer>
 
     <partial name="_ViewJsPartial" />
-
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.2/datatables.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
