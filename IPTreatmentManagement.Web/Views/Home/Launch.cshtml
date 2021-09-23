@@ -14,7 +14,21 @@
     <link rel="stylesheet" href="~/css/launch.css"/>
 </head>
 <body>
-
+<div  class="container-fluid">
+    <div id="main-container" class="row p-2">
+        <div class="col-md-7 d-flex flex-column justify-content-center">
+            <div>
+                <h1 class="display-3 font-weight-bold">International Patient</h1>
+                <h1 class="display-3 font-weight-bold">Treatment Management</h1>
+                <a class="btn btn-outline-dark btn-lg" asp-controller="Home" asp-action="Index">Portal <i class="fas fa-chevron-circle-right"></i></a>
+            </div>
+            
+        </div>
+        <div id="l-righ-img" class="col-md-5 d-none d-md-block">
+            @*<img class="h-100 ml-auto" src="~/img/launch/6fe8c2185723c3ef1cc0ed0b55856e21.png" alt="Alternate Text"/>*@
+        </div>
+    </div>
+</div>
 <partial name="_ViewJsPartial" />
     <script src="~/js/launch.js"></script>
 </body>

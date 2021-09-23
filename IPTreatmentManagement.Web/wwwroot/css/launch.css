@@ -1,2 +1,10 @@
-﻿body {
+﻿#l-righ-img {
+    background-image: url("/img/launch/6fe8c2185723c3ef1cc0ed0b55856e21.png");
+    background-repeat: no-repeat;
+    /*background-attachment: fixed;*/
+    background-position: center;
+}
+#main-container {
+    height: 100vh;
+    background: #eee6de;
 }
