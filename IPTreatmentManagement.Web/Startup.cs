@@ -51,7 +51,7 @@ namespace IPTreatmentManagement.Web
 
             services.AddTransient<AuthorizationMessageHandler>();
 
-            var iPTMApiConfigSection = Configuration.GetSection("IPTreatmentManagement.Api");
+            var iPTMApiConfigSection = Configuration.GetSection("IPTreatmentManagement:Api");
             var iPTMApiConfig = iPTMApiConfigSection.Get<IPTreatmentManagementApiConfiguration>();
             services.Configure<IPTreatmentManagementApiConfiguration>(iPTMApiConfigSection);
 
