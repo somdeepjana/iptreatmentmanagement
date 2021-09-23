@@ -1,4 +1,5 @@
-﻿@{
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@{
     Layout = null;
 }
 
@@ -11,30 +12,37 @@
     <title>International Patient Treatment Management</title>
 
     <partial name="_ViewCssPartial" />
-    <link rel="stylesheet" href="~/css/launch.css"/>
+    <link rel="stylesheet" href="~/css/launch.css" />
 </head>
 <body>
-<div  class="container-fluid">
-    <div id="main-container" class="row p-2">
-        <div class="col-md-7 d-flex flex-column justify-content-between">
-            <div>
-                <p class="font-weight-bold"><i class="fab fa-3x fa-500px"></i> IPTM</p>
+    <div class="container-fluid">
+        <div id="main-container" class="row p-2">
+            <div class="col-md-7 d-flex flex-column justify-content-between">
+                <div>
+                    <p class="font-weight-bold"><i class="fab fa-3x fa-500px"></i> IPTM</p>
+                </div>
+                <div>
+                    <h1 class="display-3 font-weight-bold">International Patient</h1>
+                    <h1 class="display-3 font-weight-bold">Treatment Management</h1>
+                    @if (!HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+                    {
+                        <a class="btn btn-outline-dark btn-lg" asp-controller="User" asp-action="Login">Login <i class="fas fa-chevron-circle-right"></i></a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-outline-dark btn-lg" asp-controller="Home" asp-action="Index">Portal <i class="fas fa-chevron-circle-right"></i></a>
+                    }
+                </div>
+                <div>
+                    <img class="ml-auto h-100 d-block" style="max-height: 100px" src="~/img/launch/cdaa761a24cda4779f5d1c12ac2a86.png" alt="Alternate Text" />
+                </div>
             </div>
-            <div>
-                <h1 class="display-3 font-weight-bold">International Patient</h1>
-                <h1 class="display-3 font-weight-bold">Treatment Management</h1>
-                <a class="btn btn-outline-dark btn-lg" asp-controller="Home" asp-action="Index">Portal <i class="fas fa-chevron-circle-right"></i></a>
+            <div id="l-righ-img" class="col-md-5 d-none d-md-block">
+                @*<img class="h-100 ml-auto" src="~/img/launch/6fe8c2185723c3ef1cc0ed0b55856e21.png" alt="Alternate Text"/>*@
             </div>
-            <div>
-                <img class="ml-auto h-100 d-block" style="max-height: 100px" src="~/img/launch/cdaa761a24cda4779f5d1c12ac2a86.png" alt="Alternate Text" />
-            </div>
-        </div>
-        <div id="l-righ-img" class="col-md-5 d-none d-md-block">
-            @*<img class="h-100 ml-auto" src="~/img/launch/6fe8c2185723c3ef1cc0ed0b55856e21.png" alt="Alternate Text"/>*@
         </div>
     </div>
-</div>
-<partial name="_ViewJsPartial" />
+    <partial name="_ViewJsPartial" />
     <script src="~/js/launch.js"></script>
 </body>
 </html>
