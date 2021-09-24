@@ -8,6 +8,7 @@ $("docuement").ready(function () {
     });
 });
 
+// Bootstrap Client side form validation
 (function () {
     'use strict';
     window.addEventListener('load', function () {
