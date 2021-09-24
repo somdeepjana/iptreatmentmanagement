@@ -57,17 +57,21 @@ namespace IPTreatmentManagement.Api.Controllers
         [Route("{InsurerPackageName}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type=typeof(ErrorResponseModel))]
-        public async Task<ActionResult<InsurerResponseDto>> GetInsurerByPackageName(string InsurerPackageName)
+        public async Task<ActionResult<InsurerResponseDto>> GetInsurerByPackageName(string insurerPackageName)
         {
-            var insurer = await _context.Insurers.FirstOrDefaultAsync(i => i.InsurerPackageName == InsurerPackageName);
+            var insurer = await _context.Insurers.FirstOrDefaultAsync(i => i.InsurerPackageName == insurerPackageName);
             if(insurer is null)
             {
                 var error = new ErrorResponseModel()
                 {
                     ErrorId = Guid.NewGuid().ToString(),
-                    Message = $"No Insurer with '{InsurerPackageName}' found",
+                    Message = $"No Insurer with '{insurerPackageName}' found",
                     Type = ErrorTypes.UserSideError.ToString(),
-                    ApplicationStatusCode = (int)ApplicationStatusCodes.InsurerEntityNotFound
+                    ApplicationStatusCode = (int)ApplicationStatusCodes.InsurerEntityNotFound,
+                    ErrorDetails = new Dictionary<string, string>
+                    {
+                        {"insurerPackageName", "check the insurerPackageName"}
+                    }
                 };
                 return NotFound(error);
             }
