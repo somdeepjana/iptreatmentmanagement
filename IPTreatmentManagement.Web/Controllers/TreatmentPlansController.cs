@@ -27,12 +27,7 @@ namespace IPTreatmentManagement.Web.Controllers
 
         public async Task<IActionResult> Create(string treatmentPackageName="")
         {
-            var patientRequest = new PatientRequestDTO
-            {
-                TreatmentPackageName = treatmentPackageName
-            };
-
-            return View(patientRequest);
+            return View();
         }
 
         [HttpPost]
