@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IPTreatmentManagement.Models.ApiRepositoryInterface;
 using IPTreatmentManagement.Models.Dtos.Request;
+using IPTreatmentManagement.Models.OperationalModels;
 using IPTreatmentManagement.Web.ConfigurationModels;
 using IPTreatmentManagement.Web.ExceptionFilters;
 using Microsoft.AspNetCore.Authentication;
@@ -16,6 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Refit;
 
 namespace IPTreatmentManagement.Web.Controllers
 {
@@ -43,21 +45,43 @@ namespace IPTreatmentManagement.Web.Controllers
         [TypeFilter(typeof(ApiCallExceptionFilter))]
         public async Task<IActionResult> Login(UserLoginRequestDto userLoginRequest, string returnUrl="/Home/Index")
         {
-            var jwtTokenResponse = await _userApiRepository.Authenticate(userLoginRequest);
-            if (string.IsNullOrEmpty(jwtTokenResponse.JwtToken))
-                throw new Exception("token not found int the received response");
+            try
+            {
+                var jwtTokenResponse = await _userApiRepository.Authenticate(userLoginRequest);
+                if (string.IsNullOrEmpty(jwtTokenResponse.JwtToken))
+                    throw new Exception("token not found int the received response");
 
-            var decoupledToken = validateToken(jwtTokenResponse.JwtToken);
-            var identity = new ClaimsIdentity(decoupledToken.Claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            identity.AddClaim(new Claim("jwtToken", jwtTokenResponse.JwtToken));
-            var principle = new ClaimsPrincipal(identity);
+                var decoupledToken = validateToken(jwtTokenResponse.JwtToken);
+                var identity = new ClaimsIdentity(decoupledToken.Claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                identity.AddClaim(new Claim("jwtToken", jwtTokenResponse.JwtToken));
+                var principle = new ClaimsPrincipal(identity);
 
-            await HttpContext.SignOutAsync();
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principle, new AuthenticationProperties());
-            //HttpContext.Session.SetString("jwtToken", jwtTokenResponse.JwtToken);
-            //HttpContext.Items["jwtToken"] = jwtTokenResponse.JwtToken;
+                await HttpContext.SignOutAsync();
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principle, new AuthenticationProperties());
+                //HttpContext.Session.SetString("jwtToken", jwtTokenResponse.JwtToken);
+                //HttpContext.Items["jwtToken"] = jwtTokenResponse.JwtToken;
 
-            return LocalRedirect(returnUrl);
+                return LocalRedirect(returnUrl);
+            }
+            catch (ApiException e)
+            {
+                var errorContent = e.GetContentAsAsync<ErrorResponseModel>().Result;
+                if (errorContent != null)
+                {
+                    if (errorContent.ApplicationStatusCode == (int) ApplicationStatusCodes.ApplicationUserNotFound)
+                    {
+                        ModelState.AddModelError("Username", "Username not present");
+                        return View(userLoginRequest);
+                    }
+                    else if(errorContent.ApplicationStatusCode == (int) ApplicationStatusCodes.UserCredentialMismatch)
+                    {
+                        ModelState.AddModelError("", "Invalid Credential");
+                        return View(userLoginRequest);
+                    }
+                }
+
+                throw;
+            }
         }
 
         [HttpPost]
