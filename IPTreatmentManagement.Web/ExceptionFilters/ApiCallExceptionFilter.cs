@@ -39,6 +39,19 @@ namespace IPTreatmentManagement.Web.ExceptionFilters
 
                 if (errorContent != null)
                 {
+                    if (Enum.IsDefined(typeof(ApplicationStatusCodes), errorContent.ApplicationStatusCode))
+                    {
+                        context.ModelState.AddModelError("", errorContent.Message);
+                        var userSideResponse = new ViewResult()
+                        {
+                            ViewName = context.RouteData.Values["action"].ToString(),
+                            ViewData = new ViewDataDictionary(_modelMetadataProvider, context.ModelState)
+                        };
+                        context.Result = userSideResponse;
+                        context.ExceptionHandled = true;
+                        return;
+                    }
+
                     var responseView = new ViewResult
                     {
                         ViewName = "UserErrorView",
