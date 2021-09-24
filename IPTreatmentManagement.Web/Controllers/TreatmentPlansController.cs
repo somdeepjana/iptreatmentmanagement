@@ -35,6 +35,8 @@ namespace IPTreatmentManagement.Web.Controllers
         {
             var newTreatmentPlan = await _treatmentPlanRepository.GenerateTreatmentPlan(patient);
 
+            TempData["Message"] = "Treatment Plan Created";
+
             return RedirectToAction(nameof(Index));
         }
     }

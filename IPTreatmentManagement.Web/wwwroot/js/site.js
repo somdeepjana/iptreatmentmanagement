@@ -26,3 +26,5 @@ $("docuement").ready(function () {
         });
     }, false);
 })();
+
+$(".toast").toast("show");
