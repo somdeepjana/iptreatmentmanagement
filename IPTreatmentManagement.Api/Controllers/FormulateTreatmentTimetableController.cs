@@ -6,6 +6,7 @@ using IPTreatmentManagement.Models.OperationalModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IPTreatmentManagement.Api.Models.Entity;
@@ -69,9 +70,14 @@ namespace IPTreatmentManagement.Api.Controllers
                 var error = new ErrorResponseModel()
                 {
                     ErrorId = Guid.NewGuid().ToString(),
-                    Message = $"No IPTreatmentPackage by name '{patient.TreatmentPackageName}' is found ",
+                    Message = "",
                     Type = ErrorTypes.UserSideError.ToString(),
-                    ApplicationStatusCode = (int)ApplicationStatusCodes.IPTreatmentPackageEntityNotFound
+                    ApplicationStatusCode = (int)ApplicationStatusCodes.IPTreatmentPackageEntityNotFound,
+                    ErrorDetails = new Dictionary<string, string>
+                    {
+                        {nameof(patient.TreatmentPackageName), 
+                            $"No IPTreatmentPackage by name '{patient.TreatmentPackageName}' is found "}
+                    }
                 };
                 //_logger.LogTrace()
                 return NotFound(error);
