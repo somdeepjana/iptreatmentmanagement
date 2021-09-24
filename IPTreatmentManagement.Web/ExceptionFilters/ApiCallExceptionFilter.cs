@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using IPTreatmentManagement.Models.OperationalModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -39,7 +40,8 @@ namespace IPTreatmentManagement.Web.ExceptionFilters
 
                 if (errorContent != null)
                 {
-                    if (Enum.IsDefined(typeof(ApplicationStatusCodes), errorContent.ApplicationStatusCode))
+                    if (Enum.IsDefined(typeof(ApplicationStatusCodes), errorContent.ApplicationStatusCode) &&
+                        context.HttpContext.Request.Method== HttpMethods.Post)
                     {
                         context.ModelState.AddModelError("", errorContent.Message);
                         foreach (var errorDetail in errorContent.ErrorDetails)
