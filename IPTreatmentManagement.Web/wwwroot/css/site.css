@@ -73,3 +73,13 @@ body {
 #c-login-dropdown {
     min-width: 200px;
 }
+
+/*serverside model validation error*/
+.field-validation-error {
+    color: red;
+    font-size: smaller;
+}
+
+.input-validation-error {
+    border-color: #dc3545;
+}
