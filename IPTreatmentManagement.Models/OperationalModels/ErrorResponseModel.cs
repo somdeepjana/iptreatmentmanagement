@@ -18,12 +18,6 @@ namespace IPTreatmentManagement.Models.OperationalModels
         public string Type { get; set; }
         public int ApplicationStatusCode { get; set; }
 
-        private readonly IEnumerable<string> _probabbleResolves = new List<string>();
-
-        public IEnumerable<string> ProbabbleResolves { get { return _probabbleResolves; } }
-        public void AddProbabbleResolve(string resolve)
-        {
-            _probabbleResolves.Append(resolve);
-        }
+        public Dictionary<string, string> ErrorDetails { get; set; } = new Dictionary<string, string>();
     }
 }
