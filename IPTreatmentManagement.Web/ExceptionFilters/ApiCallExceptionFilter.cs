@@ -43,7 +43,9 @@ namespace IPTreatmentManagement.Web.ExceptionFilters
                     if (Enum.IsDefined(typeof(ApplicationStatusCodes), errorContent.ApplicationStatusCode) &&
                         context.HttpContext.Request.Method== HttpMethods.Post)
                     {
-                        context.ModelState.AddModelError("", errorContent.Message);
+                        if(errorContent.Message != null)
+                            context.ModelState.AddModelError("", errorContent.Message);
+
                         foreach (var errorDetail in errorContent.ErrorDetails)
                         {
                             context.ModelState.AddModelError(errorDetail.Key, errorDetail.Value);

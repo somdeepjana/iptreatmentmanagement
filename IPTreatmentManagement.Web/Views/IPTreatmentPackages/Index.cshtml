@@ -46,13 +46,19 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.TreatmentDurationInDays)
                 </td>
-                <td>
+                <td class="d-flex flex-column">
                     @*@Html.ActionLink("Details", "Details", new { treatmentPackageName = item.TreatmentPackageName })*@
-                    <a class="btn btn-outline-dark"
+                    <a class="btn btn-outline-dark text-left text-nowrap mb-2"
                        asp-controller="IPTreatmentPackages"
                        asp-action="Details"
                        asp-route-treatmentPackageName="@item.TreatmentPackageName">
                         <i class="fab fa-lg fa-audible"></i> Details
+                    </a>
+                    <a class="btn btn-outline-dark text-left text-nowrap"
+                       asp-controller="TreatmentPlans"
+                       asp-action="Create"
+                       asp-route-treatmentPackageName="@item.TreatmentPackageName">
+                        <i class="fas fa-lg fa-user-injured"></i> Add Patient
                     </a>
                 </td>
             </tr>
