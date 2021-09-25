@@ -13,7 +13,7 @@ namespace IPTreatmentManagement.Models.ApiRepositoryInterface
         [Get("/api/Insurer")]
         Task<IEnumerable<InsurerResponseDto>> GetAll();
 
-        [Get("/api/Insurer/{InsurerPackageName}")]
+        [Get("/api/Insurer/{insurerPackageName}")]
         Task<InsurerResponseDto> GetInsurerByPackageName(string insurerPackageName);
     }
 }
