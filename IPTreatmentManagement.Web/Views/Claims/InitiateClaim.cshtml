@@ -38,40 +38,22 @@
         $(function() {
 
             $("#treatmentPlanSelect").select2({
-                ajax: {
-                    url: window.api_base_address + "/api/TreatmentPlans",
-                    headers: {
-                        'Authorization': 'Bearr ' + window.jwt_token,
-                        'Content-Type': 'application/json'
-                    },
-                    dataType: 'json',
-                    cache: true,
-                    delay: 250,
-                    placeholder: "Select Treatment Plan...",
-                    processResults: function(data, page) {
-                        return {
-                            results: data
-                        }
-                    },
-                    statusCode: {
-                        401: function() {
-                            Swal.fire({
-                                title: 'You are unauthorized redirect to login?',
-                                showCancelButton: true,
-                                confirmButtonText: 'Redirect'
-                            }).then((result) => {
-                                /* Read more about isConfirmed, isDenied below */
-                                if (result.isConfirmed) {
-                                    window.location.replace("/User/Login");
-                                }
-                            });
-                        }
-                    }
-                },
+                theme: 'bootstrap4',
+
+                // creating ajax request object from base
+                ajax: Object.assign({},
+                    window.select2_ajax_base,
+                    {
+                        url: window.api_base_address + "/api/TreatmentPlans",
+                        placeholder: "Select Treatment Plan..."
+                    }),
+
+                // process display response
                 templateResult: function(repo) {
                     if (repo.loading) {
                         return repo.text;
                     }
+                    
                     return repo.packageName;
                 },
                 templateSelection: function(repo) {
@@ -80,41 +62,75 @@
             });
 
             $("#insurerPackageSelect").select2({
-                ajax: {
-                    url: window.api_base_address + "/api/Insurer",
-                    headers: {
-                        'Authorization': 'Bearer ' + window.jwt_token,
-                        'Content-Type': 'application/json'
-                    },
-                    dataType: 'json',
-                    cache: true,
-                    delay: 250,
-                    placeholder: "Select Insurer Package...",
-                    processResults: function(data, page) {
-                        var select2_treatment_plans = $.map(data,
-                            function(treatment_plan, i) {
-                                return {
-                                    id: treatment_plan.insurerPackageName,
-                                    insurerName: treatment_plan.insurerName,
-                                    insurerPackageName: treatment_plan.insurerPackageName,
-                                    insuranceAmountLimit: treatment_plan.insuranceAmountLimit,
-                                    disbursementDurationInDays: treatment_plan.disbursementDurationInDays
-                                }
-                            });
+                theme: 'bootstrap4',
 
-                        return {
-                            results: select2_treatment_plans
+                // creating ajax request object from base
+                ajax: Object.assign({}, window.select2_ajax_base,
+                    {
+                        url: window.api_base_address + "/api/Insurer",
+                        placeholder: "Select Insurer Package...",
+                        processResults: function(data, page) {
+                            var select2_treatment_plans = $.map(data,
+                                function(treatment_plan, i) {
+                                    return {
+                                        id: treatment_plan.insurerPackageName,
+                                        insurerName: treatment_plan.insurerName,
+                                        insurerPackageName: treatment_plan.insurerPackageName,
+                                        insuranceAmountLimit: treatment_plan.insuranceAmountLimit,
+                                        disbursementDurationInDays: treatment_plan.disbursementDurationInDays
+                                    }
+                                });
+
+                            return {
+                                results: select2_treatment_plans
+                            }
                         }
-                    }
-                },
+                    }),
+
+                // process display response
                 templateResult: function(repo) {
                     if (repo.loading) {
                         return repo.text;
                     }
-                    return repo.insurerPackageName;
+
+                    //var $container = $(
+                    //    "<div class='select2-result-repository clearfix'>" +
+                    //        "<div class='select2-result-repository__avatar'><i class='fab fa-black-tie'></i></div>" +
+                    //        "<div class='select2-result-repository__meta'>" +
+                    //            "<div class='select2-result-repository__title'></div>" +
+                    //            "<div class='select2-result-repository__description'></div>" +
+                    //            "<div class='select2-result-repository__statistics'>" +
+                    //                "<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> </div>" +
+                    //                "<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> </div>" +
+                    //                "<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> </div>" +
+                    //            "</div>" +
+                    //        "</div>" +
+                    //    "</div>"
+                    //);
+
+                    var $container = $(
+                        "<div class=''>" +
+                            "<div class='d-flex justify-content-between'>" +
+                                "<div><i class='fas fa-lg fa-award'></i> <span id='insurer-name' class='font-weight-bold'></span></div>" +
+                                "<div><span class='font-italic font-weight-light'>package:</span> <span id='insurer-package-name'></span></div>" +
+                            "</div>" +
+                            "<div class='d-flex justify-content-between'>" +
+                                "<div><span class='font-italic font-weight-light'>amount:</span> <span id='insurance-amount-limit' class=''></span></div>" +
+                                "<div><span class='font-italic font-weight-light'>duration:</span> <span id='disbursement-duration-in-days'></span></div>" +
+                            "</div>"+
+                        "</div>"
+                    );
+
+                    $container.find("#insurer-name").text(repo.insurerName);
+                    $container.find("#insurer-package-name").text(repo.insurerPackageName);
+                    $container.find("#insurance-amount-limit").text(repo.insuranceAmountLimit);
+                    $container.find("#disbursement-duration-in-days").append(repo.disbursementDurationInDays);
+                    //$container.find(".select2-result-repository__watchers").append(repo.watchers_count + " Watchers");
+
+                    return $container;
                 },
                 templateSelection: function(repo) {
-                    return repo.insurerPackageName || repo.text;
+                    return (repo.insurerPackageName + "@@" + repo.insurerName) || repo.text;
                 }
             });
 

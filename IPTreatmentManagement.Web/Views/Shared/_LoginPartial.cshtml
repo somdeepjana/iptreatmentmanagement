@@ -29,5 +29,35 @@
 
 <script>
     var api_base_address = "@apiConfigurationsOptions.Value.BaseUrl";
-    var jwt_token= "@User.FindFirst("jwtToken")?.Value";
+    var jwt_token = "@User.FindFirst("jwtToken")?.Value";
+
+    //all the basic select2 ajax request property set 
+    var select2_ajax_base = {
+        headers: {
+            'Authorization': 'Bearer ' + window.jwt_token,
+            'Content-Type': 'application/json'
+        },
+        dataType: 'json',
+        cache: true,
+        delay: 250,
+        processResults: function(data, page) {
+            return {
+                results: data
+            }
+        },
+        statusCode: {
+            401: function() {
+                Swal.fire({
+                    title: 'You are unauthorized redirect to login?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Redirect'
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        window.location.replace("/User/Login");
+                    }
+                });
+            }
+        }
+    };
 </script>
