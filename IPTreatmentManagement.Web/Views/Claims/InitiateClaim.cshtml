@@ -75,7 +75,7 @@
                     return $container;
                 },
                 templateSelection: function(repo) {
-                    return repo.packageName || repo.text;
+                    return (repo.id + "_" + repo.packageName) || repo.text;
                 }
             });
 
