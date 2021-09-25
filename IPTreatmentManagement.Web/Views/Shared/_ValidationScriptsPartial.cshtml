@@ -10,4 +10,12 @@
     };
     $.validator.setDefaults(settings);
     $.validator.unobtrusive.options = settings;
-</script>
+
+    // fix for select2 form validation response
+    $(function() {
+        $('select').on('select2:select',
+            function(evt) {
+                $(this).blur();
+            });
+    });
+</script>S
