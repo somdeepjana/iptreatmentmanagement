@@ -53,14 +53,33 @@
                     if (repo.loading) {
                         return repo.text;
                     }
-                    
-                    return repo.packageName;
+
+                    var $container = $(
+                        "<div class=''>" +
+                            "<div class='d-flex justify-content-between'>" +
+                                "<div><span class=''>ID:</span> <span id='treatment-plan-id' class=''></span></div>" +
+                                "<div><i class='fas fa-lg fa-cubes'></i> <span id='package-name' class='font-weight-bold'></span></div>" +
+                            "</div>" +
+                            "<div class='d-flex justify-content-between'>" +
+                                "<div><i class='fas fa-lg fa-user-md'></i> <span id='specialist'></span></div>" +
+                                "<div><span class='font-italic font-weight-light'>cost:</span> <span id='cost' class=''></span></div>" +
+                            "</div>"+
+                        "</div>"
+                    );
+
+                    $container.find("#treatment-plan-id").text(repo.id);
+                    $container.find("#package-name").text(repo.packageName);
+                    $container.find("#specialist").text(repo.specialist);
+                    $container.find("#cost").text(repo.cost);
+
+                    return $container;
                 },
                 templateSelection: function(repo) {
                     return repo.packageName || repo.text;
                 }
             });
 
+            // insurer select box
             $("#insurerPackageSelect").select2({
                 theme: 'bootstrap4',
 
@@ -92,21 +111,6 @@
                     if (repo.loading) {
                         return repo.text;
                     }
-
-                    //var $container = $(
-                    //    "<div class='select2-result-repository clearfix'>" +
-                    //        "<div class='select2-result-repository__avatar'><i class='fab fa-black-tie'></i></div>" +
-                    //        "<div class='select2-result-repository__meta'>" +
-                    //            "<div class='select2-result-repository__title'></div>" +
-                    //            "<div class='select2-result-repository__description'></div>" +
-                    //            "<div class='select2-result-repository__statistics'>" +
-                    //                "<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> </div>" +
-                    //                "<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> </div>" +
-                    //                "<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> </div>" +
-                    //            "</div>" +
-                    //        "</div>" +
-                    //    "</div>"
-                    //);
 
                     var $container = $(
                         "<div class=''>" +
