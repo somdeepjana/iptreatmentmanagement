@@ -1,8 +1,10 @@
-﻿@model IPTreatmentManagement.Models.Dtos.Request.PatientRequestDTO
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+
+@model IPTreatmentManagement.Models.Dtos.Request.PatientRequestDTO
 
 @{
     ViewData["Title"] = "Create";
-
+    var queryTreatmentPackageName = HttpContextAccessor.HttpContext?.Request.Query["treatmentPackageName"].ToString();
 }
 
 <h1>Add Patient</h1>
@@ -25,7 +27,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="TreatmentPackageName" class="control-label"></label>
-                <input id="treatmentPackage" asp-for="TreatmentPackageName" class="form-control" />
+                <select id="treatmentPackage" asp-for="TreatmentPackageName" class="form-control">
+                    @if (queryTreatmentPackageName != string.Empty)
+                    {
+                        <option value="@queryTreatmentPackageName" selected="selected">@queryTreatmentPackageName</option>
+                    }
+                </select>
                 <span asp-validation-for="TreatmentPackageName" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -46,74 +53,69 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    
+
     <script>
         $(function () {
 
-            $("#treatmentPackage").on("click",
-                function() {
-                    $("#treatmentPackage").select2({
-                        theme: 'bootstrap4',
+            $("#treatmentPackage").select2({
+                theme: 'bootstrap4',
 
-                        // creating ajax request object from base
-                        ajax: Object.assign({}, window.select2_ajax_base,
-                            {
-                                url: window.api_base_address + "/api/IPTreatmentPackages",
-                                placeholder: "Select Treatment Package...",
-                                processResults: function (data, page) {
-                                    var select2_treatment_package = $.map(data,
-                                        function (treatment_package, i) {
-                                            return {
-                                                id: treatment_package.treatmentPackageName,
-                                                treatmentPackageName: treatment_package.treatmentPackageName,
-                                                testDetails: treatment_package.testDetails,
-                                                cost: treatment_package.cost,
-                                                treatmentDurationInDays: treatment_package.treatmentDurationInDays
-                                            }
-                                        });
-
+                // creating ajax request object from base
+                ajax: Object.assign({}, window.select2_ajax_base,
+                    {
+                        url: window.api_base_address + "/api/IPTreatmentPackages",
+                        placeholder: "Select Treatment Package...",
+                        processResults: function (data, page) {
+                            var select2_treatment_package = $.map(data,
+                                function (treatment_package, i) {
                                     return {
-                                        results: select2_treatment_package
+                                        id: treatment_package.treatmentPackageName,
+                                        treatmentPackageName: treatment_package.treatmentPackageName,
+                                        testDetails: treatment_package.testDetails,
+                                        cost: treatment_package.cost,
+                                        treatmentDurationInDays: treatment_package.treatmentDurationInDays
                                     }
-                                }
-                            }),
+                                });
 
-                        // process display response
-                        templateResult: function (repo) {
-                            if (repo.loading) {
-                                return repo.text;
+                            return {
+                                results: select2_treatment_package
                             }
-
-                            var $container = $(
-                                "<div class=''>" +
-                                "<div class='d-flex justify-content-between'>" +
-                                "<div><i class='fas fa-lg fa-award'></i> <span id='treatment-package-name' class='font-weight-bold'></span></div>" +
-                                "<div><span class='font-italic font-weight-light'>cost:</span> <span id='treatment-cost'></span></div>" +
-                                "</div>" +
-                                "<div class='d-flex justify-content-between'>" +
-                                "<div><span class='font-italic font-weight-light'>treatment duration:</span> <span id='treatment-duration-in-days' class=''></span></div>" +
-                                "</div>" +
-                                "</div>"
-                            );
-
-                            $container.find("#treatment-package-name").text(repo.treatmentPackageName);
-                            $container.find("#treatment-cost").text(repo.cost);
-                            $container.find("#treatment-duration-in-days").text(repo.treatmentDurationInDays);
-                            //$container.find("#disbursement-duration-in-days").append(repo.disbursementDurationInDays);
-                            //$container.find(".select2-result-repository__watchers").append(repo.watchers_count + " Watchers");
-
-                            return $container;
-                        },
-                        templateSelection: function (repo) {
-                            return (repo.insurerPackageName + "@@" + repo.insurerName) || repo.text;
                         }
-                    });
-                });
+                    }),
 
-            //var url = window.location.search;
-            //if (url.match("treatmentPackageName").length <= 0) {
-                
-            //}
+                // process display response
+                templateResult: function (repo) {
+                    if (repo.loading) {
+                        return repo.text;
+                    }
+
+                    var $container = $(
+                        "<div class=''>" +
+                        "<div class='d-flex justify-content-between'>" +
+                        "<div><i class='fas fa-lg fa-notes-medical'></i> <span id='treatment-package-name' class='font-weight-bold'></span></div>" +
+                        "<div><span class='font-italic font-weight-light'>cost:</span> <span id='treatment-cost'></span></div>" +
+                        "</div>" +
+                        "<div class='d-flex justify-content-between'>" +
+                        "<div><span class='font-italic font-weight-light'>treatment duration:</span> <span id='treatment-duration-in-days' class=''></span></div>" +
+                        "</div>" +
+                        "</div>"
+                    );
+
+                    $container.find("#treatment-package-name").text(repo.treatmentPackageName);
+                    $container.find("#treatment-cost").text(repo.cost);
+                    $container.find("#treatment-duration-in-days").text(repo.treatmentDurationInDays + " days");
+
+                    return $container;
+                },
+                templateSelection: function (repo) {
+
+                    var showTxt = repo.id;
+                    if (repo.cost) {
+                        showTxt += "@@" + repo.cost;
+                    }
+                    return showTxt || repo.text;
+                }
+            });
         });
     </script>
 }
