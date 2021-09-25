@@ -2,7 +2,7 @@
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 <script>
-    // Bootstrap server-side validation
+    //Bootstrap server-side and client side validation
     var settings = {
         validClass: "is-valid",
         errorClass: "is-invalid"
@@ -10,29 +10,4 @@
     };
     $.validator.setDefaults(settings);
     $.validator.unobtrusive.options = settings;
-
-    //jQuery.validator.setDefaults({
-    //    onfocusout: function (e) {
-    //        this.element(e);
-    //    },
-    //    //onkeyup: false,
-    //    highlight: function (element) {
-    //        jQuery(element).closest('.form-control').addClass('is-invalid');
-    //    },
-    //    unhighlight: function (element) {
-    //        jQuery(element).closest('.form-control').removeClass('is-invalid');
-    //        jQuery(element).closest('.form-control').addClass('is-valid');
-    //    },
-
-    //    errorElement: 'div',
-    //    errorClass: 'invalid-feedback',
-    //    errorPlacement: function (error, element) {
-    //        if (element.parent('.input-group-prepend').length) {
-    //            $(element).siblings(".invalid-feedback").append(error);
-    //            //error.insertAfter(element.parent());
-    //        } else {
-    //            error.insertAfter(element);
-    //        }
-    //    },
-    //});
 </script>
