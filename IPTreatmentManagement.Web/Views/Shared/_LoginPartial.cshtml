@@ -1,24 +1,33 @@
-﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+﻿@using Microsoft.Extensions.Options
+@using IPTreatmentManagement.Web.ConfigurationModels
+
+@inject IOptions<IPTreatmentManagementApiConfiguration> apiConfigurationsOptions
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
 
 <ul class="navbar-nav">
     @if (HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
     {
         <li class="nav-item dropdown">
             @*<div class="dropdown">*@
-                <button class="nav-link btn text-dark dropdown-toggle" data-toggle="dropdown">
-                    <i class="fas fa-lg fa-user-shield"></i> @User.Claims.FirstOrDefault(i => i.Type == "unique_name").Value
-                </button>
-                <div class="dropdown-menu">
-                    <form class="form-inline" asp-controller="User" asp-action="Logout">
-                        <input type="submit" class="dropdown-item" value="Logout">
-                    </form>
-                </div>
+            <button class="nav-link btn text-dark dropdown-toggle" data-toggle="dropdown">
+                <i class="fas fa-lg fa-user-shield"></i> @User.Claims.FirstOrDefault(i => i.Type == "unique_name").Value
+            </button>
+            <div class="dropdown-menu">
+                <form class="form-inline" asp-controller="User" asp-action="Logout">
+                    <input type="submit" class="dropdown-item" value="Logout">
+                </form>
+            </div>
             @*</div>*@
         </li>
     }
     else
     {
         <a class="nav-link text-white btn-lg btn btn-dark"
-                asp-controller="User" asp-action="Login">Login</a>
+           asp-controller="User" asp-action="Login">Login</a>
     }
 </ul>
+
+<script>
+    var api_base_address = "@apiConfigurationsOptions.Value.BaseUrl";
+    var jwt_token= "@User.FindFirst("jwtToken")?.Value";
+</script>

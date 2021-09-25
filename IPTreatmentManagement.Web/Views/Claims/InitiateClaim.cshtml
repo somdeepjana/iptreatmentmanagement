@@ -13,12 +13,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="TreatmentPlanEntityId" class="control-label"></label>
-                <input asp-for="TreatmentPlanEntityId" class="form-control" />
+                <select id="treatmentPlanSelect" asp-for="TreatmentPlanEntityId" class="form-control"></select>
                 <span asp-validation-for="TreatmentPlanEntityId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="InsurerPackageName" class="control-label"></label>
-                <input asp-for="InsurerPackageName" class="form-control" />
+                <select id="insurerPackageSelect" asp-for="InsurerPackageName" class="form-control"></select>
                 <span asp-validation-for="InsurerPackageName" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -34,5 +34,88 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    
+    <script>
+        $(function() {
+
+            $("#treatmentPlanSelect").select2({
+                ajax: {
+                    url: window.api_base_address + "/api/TreatmentPlans",
+                    headers: {
+                        'Authorization': 'Bearer ' + window.jwt_token,
+                        'Content-Type': 'application/json'
+                    },
+                    dataType: 'json',
+                    cache: true,
+                    delay: 250,
+                    placeholder: "Select Treatment Plan...",
+                    processResults: function (data, page) {
+                        return {
+                            results: data
+                        }
+                    }
+                },
+                templateResult: function (repo) {
+                    if (repo.loading) {
+                        return repo.text;
+                    }
+                    return repo.packageName;
+                },
+                templateSelection: function(repo) {
+                    return repo.packageName || repo.text;
+                }
+            });
+
+            $("#insurerPackageSelect").select2({
+                ajax: {
+                    url: window.api_base_address + "/api/Insurer",
+                    headers: {
+                        'Authorization': 'Bearer ' + window.jwt_token,
+                        'Content-Type': 'application/json'
+                    },
+                    dataType: 'json',
+                    cache: true,
+                    delay: 250,
+                    placeholder: "Select Insurer Package...",
+                    processResults: function (data, page) {
+                        var select2_treatment_plans = $.map(data,
+                            function (treatment_plan, i) {
+                                return {
+                                    id: treatment_plan.insurerPackageName,
+                                    insurerName: treatment_plan.insurerName,
+                                    insurerPackageName: treatment_plan.insurerPackageName,
+                                    insuranceAmountLimit: treatment_plan.insuranceAmountLimit,
+                                    disbursementDurationInDays: treatment_plan.disbursementDurationInDays
+                                }
+                            });
+
+                        return {
+                            results: select2_treatment_plans
+                        }
+                    }
+                },
+                templateResult: function (repo) {
+                    if (repo.loading) {
+                        return repo.text;
+                    }
+                    return repo.insurerPackageName;
+                },
+                templateSelection: function(repo) {
+                    return repo.insurerPackageName || repo.text;
+                }
+            });
+
+            //$.ajax({
+            //    url: window.api_base_address+"/api/TreatmentPlans",
+            //    headers: {
+            //        'Authorization': 'Bearer ' + window.jwt_token,
+            //        'Content-Type': 'application/json'
+            //    },
+            //    dataType: 'json',
+            //    success: function (result) {
+            //        console.log(result);
+            //    }
+            //});
+            console.log(window.jwt_token);
+        });
+    </script>
 }
