@@ -41,20 +41,34 @@
                 ajax: {
                     url: window.api_base_address + "/api/TreatmentPlans",
                     headers: {
-                        'Authorization': 'Bearer ' + window.jwt_token,
+                        'Authorization': 'Bearr ' + window.jwt_token,
                         'Content-Type': 'application/json'
                     },
                     dataType: 'json',
                     cache: true,
                     delay: 250,
                     placeholder: "Select Treatment Plan...",
-                    processResults: function (data, page) {
+                    processResults: function(data, page) {
                         return {
                             results: data
                         }
+                    },
+                    statusCode: {
+                        401: function() {
+                            Swal.fire({
+                                title: 'You are unauthorized redirect to login?',
+                                showCancelButton: true,
+                                confirmButtonText: 'Redirect'
+                            }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                    window.location.replace("/User/Login");
+                                }
+                            });
+                        }
                     }
                 },
-                templateResult: function (repo) {
+                templateResult: function(repo) {
                     if (repo.loading) {
                         return repo.text;
                     }
@@ -76,9 +90,9 @@
                     cache: true,
                     delay: 250,
                     placeholder: "Select Insurer Package...",
-                    processResults: function (data, page) {
+                    processResults: function(data, page) {
                         var select2_treatment_plans = $.map(data,
-                            function (treatment_plan, i) {
+                            function(treatment_plan, i) {
                                 return {
                                     id: treatment_plan.insurerPackageName,
                                     insurerName: treatment_plan.insurerName,
@@ -93,7 +107,7 @@
                         }
                     }
                 },
-                templateResult: function (repo) {
+                templateResult: function(repo) {
                     if (repo.loading) {
                         return repo.text;
                     }
