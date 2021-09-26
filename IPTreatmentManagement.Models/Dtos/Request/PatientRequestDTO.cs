@@ -12,7 +12,7 @@ namespace IPTreatmentManagement.Models.Dtos.Request
     {
         [Required]
         public string Name { get; set; }
-        [Required]
+        [Required, Range(1, 150)]
         public int Age { get; set; }
         //[Required]
         //public AilmentDomain Ailment { get; set; }

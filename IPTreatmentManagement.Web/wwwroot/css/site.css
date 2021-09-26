@@ -69,3 +69,17 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+#c-login-dropdown {
+    min-width: 200px;
+}
+
+/*serverside model validation error*/
+.field-validation-error {
+    color: red;
+    font-size: smaller;
+}
+
+.input-validation-error {
+    border-color: #dc3545;
+}

@@ -124,6 +124,9 @@ namespace IPTreatmentManagement.Api
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IPTreatmentManagement.Api v1"));
 
             app.UseRouting();
+            app.UseCors(x => x.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
 
             app.UseAuthentication();
             app.UseAuthorization();

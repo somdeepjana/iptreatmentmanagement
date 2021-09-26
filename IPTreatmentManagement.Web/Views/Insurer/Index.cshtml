@@ -42,11 +42,11 @@
                 </td>
                 <td>
                     @*@Html.ActionLink("Details", "Details", new { insurerPackageName= item.InsurerPackageName })*@
-                    <a class="btn btn-outline-secondary"
+                    <a class="btn btn-outline-dark"
                        asp-controller="Insurer"
                        asp-action="Details"
                        asp-route-insurerPackageName="@item.InsurerPackageName">
-                        <i class="fas fa-lg fa-info-circle"></i>
+                        <i class="fab fa-lg fa-audible"></i> Details
                     </a>
                 </td>
             </tr>

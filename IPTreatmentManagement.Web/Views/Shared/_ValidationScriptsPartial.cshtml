@@ -1,2 +1,21 @@
 ﻿<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    //Bootstrap server-side and client side validation
+    var settings = {
+        validClass: "is-valid",
+        errorClass: "is-invalid"
+
+    };
+    $.validator.setDefaults(settings);
+    $.validator.unobtrusive.options = settings;
+
+    // fix for select2 form validation response
+    $(function() {
+        $('select').on('select2:select',
+            function(evt) {
+                $(this).blur();
+            });
+    });
+</script>

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IPTreatmentManagement.Models.ApiRepositoryInterface;
 using IPTreatmentManagement.Models.Dtos.Request;
+using IPTreatmentManagement.Models.OperationalModels;
 using IPTreatmentManagement.Web.ConfigurationModels;
 using IPTreatmentManagement.Web.ExceptionFilters;
 using Microsoft.AspNetCore.Authentication;
@@ -16,6 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Refit;
 
 namespace IPTreatmentManagement.Web.Controllers
 {
@@ -41,7 +43,7 @@ namespace IPTreatmentManagement.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [TypeFilter(typeof(ApiCallExceptionFilter))]
-        public async Task<IActionResult> Login(UserLoginRequestDto userLoginRequest, string returnUrl="/Home/Index")
+        public async Task<IActionResult> Login(UserLoginRequestDto userLoginRequest, string returnUrl = "/Home/Index")
         {
             var jwtTokenResponse = await _userApiRepository.Authenticate(userLoginRequest);
             if (string.IsNullOrEmpty(jwtTokenResponse.JwtToken))

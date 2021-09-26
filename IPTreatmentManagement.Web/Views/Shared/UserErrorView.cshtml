@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Error";
 
-    var errorName = (IPTreatmentManagement.Models.OperationalModels.ApplicationStatusCodes) Model.ApplicationStatusCode;
+    var errorName = (IPTreatmentManagement.Models.OperationalModels.ApplicationStatusCodes)Model.ApplicationStatusCode;
 }
 
 <h1 class="text-danger">Error</h1>
@@ -12,29 +12,57 @@
     <h4 class="text-danger">@errorName.ToString()</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ErrorId)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ErrorId)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Message)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Message)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Type)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Type)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ApplicationStatusCode)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ApplicationStatusCode)
         </dd>
     </dl>
 </div>
+@if (Model.ErrorDetails.Any())
+{
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Scope
+                </th>
+                <th>
+                    Error Details
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var errorDetail in Model.ErrorDetails)
+            {
+                <tr>
+                    <td>
+                        @errorDetail.Key
+                    </td>
+                    <td>
+                        @errorDetail.Value
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

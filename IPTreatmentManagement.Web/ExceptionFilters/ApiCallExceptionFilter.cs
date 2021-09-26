@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using IPTreatmentManagement.Models.OperationalModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -39,6 +40,27 @@ namespace IPTreatmentManagement.Web.ExceptionFilters
 
                 if (errorContent != null)
                 {
+                    if (Enum.IsDefined(typeof(ApplicationStatusCodes), errorContent.ApplicationStatusCode) &&
+                        context.HttpContext.Request.Method== HttpMethods.Post)
+                    {
+                        if(errorContent.Message != null)
+                            context.ModelState.AddModelError("", errorContent.Message);
+
+                        foreach (var errorDetail in errorContent.ErrorDetails)
+                        {
+                            context.ModelState.AddModelError(errorDetail.Key, errorDetail.Value);
+                        }
+
+                        var userSideResponse = new ViewResult()
+                        {
+                            ViewName = context.RouteData.Values["action"].ToString(),
+                            ViewData = new ViewDataDictionary(_modelMetadataProvider, context.ModelState)
+                        };
+                        context.Result = userSideResponse;
+                        context.ExceptionHandled = true;
+                        return;
+                    }
+
                     var responseView = new ViewResult
                     {
                         ViewName = "UserErrorView",

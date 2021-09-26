@@ -25,7 +25,7 @@ namespace IPTreatmentManagement.Web.Controllers
             return View(treatmentPlans);
         }
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(string treatmentPackageName="")
         {
             return View();
         }
@@ -34,6 +34,8 @@ namespace IPTreatmentManagement.Web.Controllers
         public async Task<IActionResult> Create(PatientRequestDTO patient)
         {
             var newTreatmentPlan = await _treatmentPlanRepository.GenerateTreatmentPlan(patient);
+
+            TempData["Message"] = "Treatment Plan Created";
 
             return RedirectToAction(nameof(Index));
         }

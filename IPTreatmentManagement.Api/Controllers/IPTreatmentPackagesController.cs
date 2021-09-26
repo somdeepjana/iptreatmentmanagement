@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using IPTreatmentManagement.Api.Models.Entity;
 using IPTreatmentManagement.EFCore.Data;
@@ -66,7 +67,11 @@ namespace IPTreatmentManagement.Api.Controllers
                     ErrorId = Guid.NewGuid().ToString(),
                     Message = $"No IPTreatmentPackage by name '{packageName}' found",
                     Type = ErrorTypes.UserSideError.ToString(),
-                    ApplicationStatusCode= (int)ApplicationStatusCodes.IPTreatmentPackageEntityNotFound
+                    ApplicationStatusCode= (int)ApplicationStatusCodes.IPTreatmentPackageEntityNotFound,
+                    ErrorDetails = new Dictionary<string, string>
+                    {
+                        {"packageName", "Check the packageName"}
+                    }
                 };
                 //_logger.LogTrace()
                 return NotFound(error);

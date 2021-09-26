@@ -72,9 +72,14 @@ namespace IPTreatmentManagement.Api.Controllers
                 var error = new ErrorResponseModel()
                 {
                     ErrorId = Guid.NewGuid().ToString(),
-                    Message = $"No TreatmentPlan by id '{initiateClaimRequestDto.TreatmentPlanEntityId}' is found ",
+                    Message = "Invalid data",
                     Type = ErrorTypes.UserSideError.ToString(),
-                    ApplicationStatusCode = (int)ApplicationStatusCodes.TreatmentPlanEntityNotFound
+                    ApplicationStatusCode = (int)ApplicationStatusCodes.TreatmentPlanEntityNotFound,
+                    ErrorDetails = new Dictionary<string, string>()
+                    {
+                        {nameof(InitiateClaimRequestDto.TreatmentPlanEntityId),
+                            $"No TreatmentPlan by id '{initiateClaimRequestDto.TreatmentPlanEntityId}' is found "}
+                    }
                 };
                 //_logger.LogTrace()
                 return NotFound(error);
@@ -87,9 +92,14 @@ namespace IPTreatmentManagement.Api.Controllers
                 var error = new ErrorResponseModel()
                 {
                     ErrorId = Guid.NewGuid().ToString(),
-                    Message = $"No Insurer by name '{initiateClaimRequestDto.InsurerPackageName}' is found ",
+                    Message = "Invalid data",
                     Type = ErrorTypes.UserSideError.ToString(),
-                    ApplicationStatusCode = (int)ApplicationStatusCodes.InsurerEntityNotFound
+                    ApplicationStatusCode = (int)ApplicationStatusCodes.InsurerEntityNotFound,
+                    ErrorDetails = new Dictionary<string, string>()
+                    {
+                        {nameof(InitiateClaimRequestDto.InsurerPackageName),
+                            $"No Insurer by name '{initiateClaimRequestDto.InsurerPackageName}' is found "}
+                    }
                 };
                 //_logger.LogTrace()
                 return NotFound(error);
@@ -100,9 +110,8 @@ namespace IPTreatmentManagement.Api.Controllers
                 var error = new ErrorResponseModel()
                 {
                     ErrorId = Guid.NewGuid().ToString(),
-                    Message =
-                        $"Insurance package {insurerEntity.InsurerPackageName} cover upto {insurerEntity.InsuranceAmountLimit} " +
-                        $"but treatment plan cost is {treatmentPlanEntity.IPTreatmentPackageEntity.Cost}",
+                    Message = $"Insurance package {insurerEntity.InsurerPackageName} cover upto {insurerEntity.InsuranceAmountLimit} " +
+                              $"but treatment plan cost is {treatmentPlanEntity.IPTreatmentPackageEntity.Cost}",
                     Type = ErrorTypes.UserSideError.ToString(),
                     ApplicationStatusCode = (int) ApplicationStatusCodes.ExceedInsuraceClaimAmount
                 };

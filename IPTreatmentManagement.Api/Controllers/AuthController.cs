@@ -52,9 +52,14 @@ namespace IPTreatmentManagement.Api.Controllers
                 var userNotFounderror = new ErrorResponseModel()
                 {
                     ErrorId = Guid.NewGuid().ToString(),
-                    Message = $"No User with username {userLoginRequestDto.Username} is found",
+                    Message = "",
                     Type = ErrorTypes.UserSideError.ToString(),
-                    ApplicationStatusCode = (int) ApplicationStatusCodes.ApplicationUserNotFound
+                    ApplicationStatusCode = (int) ApplicationStatusCodes.ApplicationUserNotFound,
+                    ErrorDetails = new Dictionary<string, string>
+                    {
+                        {nameof(userLoginRequestDto.Username),
+                            $"No User with username {userLoginRequestDto.Username} is found"}
+                    }
                 };
 
                 return NotFound(userNotFounderror);

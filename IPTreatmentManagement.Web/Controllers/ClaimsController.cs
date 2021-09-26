@@ -35,6 +35,8 @@ namespace IPTreatmentManagement.Web.Controllers
         {
             var claims = await _claimsRepository.InitiateClaim(claimRequest);
 
+            TempData["Message"] = "Claim Initiation Request received";
+
             return RedirectToAction(nameof(Index));
         }
     }
