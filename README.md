@@ -32,12 +32,12 @@ Default admin credentials are given below. you can change these in the
 `appsettings.json` of the webapi, you will find the file at 
 `{BASE_DIRECTORY}/IPTreatmentManagement.Api/appsettings.json`
 		
-	```json
-	"AdminCredentials": {
-		"UserName": "admin",
-		"Password": "Pas$w0rd"
-	}
-	```
+```json
+"AdminCredentials": {
+	"UserName": "admin",
+	"Password": "Pas$w0rd"
+}
+```
 			
 ## NOTES:-
 1. The MVC application depends on the web api so it needs the running api's 
