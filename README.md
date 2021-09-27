@@ -31,7 +31,6 @@ used to server the dynamic front end to the user and from the user browser clien
 Default admin credentials are given below. you can change these in the 
 `appsettings.json` of the webapi, you will find the file at 
 `{BASE_DIRECTORY}/IPTreatmentManagement.Api/appsettings.json`
-		
 ```json
 "AdminCredentials": {
 	"UserName": "admin",
@@ -44,14 +43,13 @@ Default admin credentials are given below. you can change these in the
 url endpoint. API endpoint URL can be provided to the MVC application through 
 `appsettings.json`. look for the below line in 
 `{BASE_DIRECTORY}/IPTreatmentManagement.Web/appsettings.json`.
-		
-```json
-"IPTreatmentManagement": {
-	"Api": {
-		"BaseUrl": "https://localhost:44345"
+	```json
+	"IPTreatmentManagement": {
+		"Api": {
+			"BaseUrl": "https://localhost:44345"
+		}
 	}
-}
-```
+	```
 			
 2. MVC application depends on some js libraries which are not provided in the 
 shipping package for smaller distribution size. By default these packages will be 
