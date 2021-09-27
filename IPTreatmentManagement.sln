@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPTreatmentManagement.Model
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPTreatmentManagement.EFCore.Data", "IPTreatmentManagement.Data\IPTreatmentManagement.EFCore.Data.csproj", "{F0C15F17-B579-4437-943C-6C30DD711A61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPTreatmentManagement.Web", "IPTreatmentManagement.Web\IPTreatmentManagement.Web.csproj", "{D57AE15A-A4D1-4311-AB8F-7491582680EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPTreatmentManagement.Web", "IPTreatmentManagement.Web\IPTreatmentManagement.Web.csproj", "{D57AE15A-A4D1-4311-AB8F-7491582680EC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CCC1ABDF-2F92-4F4A-838D-6E655DE1CF71}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
